@@ -5,6 +5,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
 import { configureEcho } from '@laravel/echo-vue';
+import PublicLayout from '@/layouts/PublicLayout.vue';
 
 configureEcho({
     broadcaster: 'reverb',
@@ -20,6 +21,8 @@ void createInertiaApp({
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
+            case name.startsWith('developers/'):
+                return PublicLayout;
             case name.startsWith('settings/'):
                 return [AppLayout, SettingsLayout];
             default:
