@@ -15,6 +15,10 @@ const auth = computed(() => page.props.auth as {
     user: AuthUser | null;
 });
 
+const flash = page.props.flash as {
+    success?: string | null;
+};
+
 function getInitial(name?: string | null): string {
     return name?.trim().charAt(0).toUpperCase() || '?';
 }
@@ -117,6 +121,13 @@ function getInitial(name?: string | null): string {
                 </div>
             </nav>
         </header>
+
+        <div v-if="flash?.success" role="status" class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div
+                class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+                {{ flash.success }}
+            </div>
+        </div>
 
         <!-- Contenu de la page -->
         <main class="flex-1">
@@ -241,6 +252,17 @@ function getInitial(name?: string | null): string {
                                     Créer un compte
                                 </Link>
                             </li>
+                            <li v-if="auth.user">
+                                <Link href="/my-projects" class="nav-link">
+                                    Mes projets
+                                </Link>
+                            </li>
+                            <li v-if="auth.user">
+                                <Link href="/my-collaboration-requests" class="nav-link">
+                                    Mes candidatures
+                                </Link>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

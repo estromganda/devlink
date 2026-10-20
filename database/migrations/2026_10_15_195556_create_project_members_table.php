@@ -19,7 +19,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->string('role', 30)->default('contributor');
+            // $table->string('role', 30)->default('contributor');
+            $table->enum('role', ['contributor', 'owner'])->default('contributor');
             $table->timestamp('joined_at')->useCurrent();
 
             $table->timestamps();

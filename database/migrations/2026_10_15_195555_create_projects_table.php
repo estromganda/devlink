@@ -20,7 +20,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('short_description')->nullable();
 
-            $table->string('status', 30)->default('active');
+            // $table->string('status', 30)->default('active');
+            $table->enum('status', ['active', 'in_progress', 'completed', 'paused'])->default('active'); // 
             $table->string('visibility', 20)->default('public');
 
             $table->string('repository_url')->nullable();

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CollaborationOfferController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\DeveloperProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -57,6 +59,62 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{post}/like', [PostLikeController::class, 'destroy'])
         ->whereNumber('post')
         ->name('posts.likes.destroy');
+
+    // Projets
+    Route::get('/my-projects', [ProjectController::class, 'mine'])
+        ->name('projects.mine');
+
+    Route::get('/projects/create', [ProjectController::class, 'create'])
+        ->name('projects.create');
+
+    Route::post('/projects', [ProjectController::class, 'store'])
+        ->name('projects.store');
+
+    Route::get('/projects/{slug}/edit', [ProjectController::class, 'edit'])
+        ->where('slug', '[a-z0-9-]+')
+        ->name('projects.edit');
+
+    Route::put('/projects/{slug}', [ProjectController::class, 'update'])
+        ->where('slug', '[a-z0-9-]+')
+        ->name('projects.update');
+
+    Route::delete('/projects/{slug}', [ProjectController::class, 'destroy'])
+        ->where('slug', '[a-z0-9-]+')
+        ->name('projects.destroy');
+
+    // Demandes envoyées par le développeur connecté
+    Route::get('/my-collaboration-requests', [
+        CollaborationOfferController::class,
+        'mine',
+    ])->name('collaborations.mine');
+
+    // Demandes reçues par le propriétaire d'un projet
+    Route::get('/projects/{slug}/collaboration-requests', [
+        CollaborationOfferController::class,
+        'received',
+    ])->where('slug', '[a-z0-9-]+')
+        ->name('projects.collaboration-requests');
+
+    // Envoyer une demande
+    Route::post('/projects/{slug}/collaboration-requests', [
+        CollaborationOfferController::class,
+        'store',
+    ])->where('slug', '[a-z0-9-]+')
+        ->name('projects.collaboration-requests.store');
+
+    // Accepter ou refuser une demande
+    Route::patch('/collaboration-offers/{offer}', [
+        CollaborationOfferController::class,
+        'update',
+    ])->whereNumber('offer')
+        ->name('collaboration-offers.update');
+
+    // Retirer sa propre demande
+    Route::delete('/collaboration-offers/{offer}', [
+        CollaborationOfferController::class,
+        'withdraw',
+    ])->whereNumber('offer')
+        ->name('collaboration-offers.withdraw');
 });
 
 Route::get('/developers', [
@@ -96,4 +154,11 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
     ->whereNumber('post')
     ->name('posts.show');
 
+// Les projets
+Route::get('/projects', [ProjectController::class, 'index'])
+    ->name('projects.index');
+
+Route::get('/projects/{slug}', [ProjectController::class, 'show'])
+    ->where('slug', '[a-z0-9-]+')
+    ->name('projects.show');
 require __DIR__ . '/settings.php';
