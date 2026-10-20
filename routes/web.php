@@ -3,6 +3,7 @@
 use App\Http\Controllers\CollaborationOfferController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\DeveloperProfileController;
 use App\Http\Controllers\PostController;
@@ -115,6 +116,40 @@ Route::middleware(['auth'])->group(function () {
         'withdraw',
     ])->whereNumber('offer')
         ->name('collaboration-offers.withdraw');
+
+    // Conversations
+    // Liste des conversations
+    Route::get('/messages', [
+        ConversationController::class,
+        'index',
+    ])->name('messages.index');
+
+    // Rechercher un développeur pour démarrer une conversation
+    // Cette route doit être déclarée avant /messages/{conversation}.
+    Route::get('/messages/new', [
+        ConversationController::class,
+        'create',
+    ])->name('messages.create');
+
+    // Créer ou retrouver une conversation privée
+    Route::post('/messages/start', [
+        ConversationController::class,
+        'store',
+    ])->name('messages.store');
+
+    // Historique d'une conversation
+    Route::get('/messages/{conversation}', [
+        ConversationController::class,
+        'show',
+    ])->whereNumber('conversation')
+        ->name('messages.show');
+
+    // Envoyer un message
+    Route::post('/messages/{conversation}', [
+        ConversationController::class,
+        'send',
+    ])->whereNumber('conversation')
+        ->name('messages.send');
 });
 
 Route::get('/developers', [
