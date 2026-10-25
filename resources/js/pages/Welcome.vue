@@ -13,69 +13,70 @@ const auth = computed(() => page.props.auth as {
 
 const features = [
     {
-        number: '01',
+        number: '',
         icon: '👨‍💻',
         title: 'Rencontre des développeurs',
         description:
             'Découvre des développeurs, explore leurs compétences et trouve des personnes qui partagent tes intérêts.',
         link: '/developers',
         linkText: 'Explorer les développeurs',
-        status: 'Disponible',
+        status: null,
         available: true,
     },
     {
-        number: '02',
+        number: '',
         icon: '🌐',
         title: 'Rejoins des communautés',
         description:
             'Échange autour de Laravel, Vue, Python, PostgreSQL et de nombreux autres sujets techniques.',
         link: '/communities',
         linkText: 'Explorer les communautés',
-        status: 'Disponible',
+        status: null,
         available: true,
     },
     {
-        number: '03',
+        number: '',
         icon: '💬',
         title: 'Partage tes connaissances',
         description:
             'Publie des questions, partage tes idées et participe aux discussions avec les autres membres.',
         link: '/posts',
         linkText: 'Voir les actualités',
-        status: 'Disponible',
+        status: null,
         available: true,
     },
     {
-        number: '04',
+        number: '',
         icon: '🚀',
         title: 'Présente tes projets',
         description:
             'Mets tes réalisations en valeur, partage tes dépôts Git et montre ce que tu construis.',
         link: '/projects',
         linkText: 'Découvrir les projets',
-        status: 'À venir',
+        status: null,
         available: false,
     },
     {
-        number: '05',
+        number: '',
         icon: '🤝',
         title: 'Construis avec les autres',
         description:
             'Trouve des collaborateurs, propose ton aide et participe à des projets collectifs.',
-        link: '/collaborations',
+        // link: '/collaborations',
+        link: '/my-collaboration-requests',
         linkText: 'Découvrir les collaborations',
         status: 'À venir',
         available: false,
     },
     {
-        number: '06',
+        number: '',
         icon: '✉️',
         title: 'Échange directement',
         description:
             'Reste en contact avec les développeurs et organise tes échanges au même endroit.',
         link: '/messages',
         linkText: 'Accéder à la messagerie',
-        status: 'À venir',
+        status: '',
         available: false,
     },
 ];
@@ -301,7 +302,7 @@ const features = [
                             {{ feature.icon }}
                         </div>
 
-                        <span class="rounded-full px-3 py-1 text-xs font-semibold" :class="feature.available
+                        <span v-if="feature.status" class="rounded-full px-3 py-1 text-xs font-semibold" :class="feature.available
                             ? 'bg-primary/10 text-primary'
                             : 'bg-muted text-muted-foreground'
                             ">

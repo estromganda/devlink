@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 interface Developer {
     id: number;
@@ -20,6 +21,19 @@ interface Technology {
     years_experience: number | null;
     is_primary: boolean;
 }
+
+type AuthUser = {
+    id: number;
+    name: string;
+    email?: string;
+    avatar_path?: string | null;
+};
+
+const page = usePage();
+
+const auth = computed(() => page.props.auth as {
+    user: AuthUser | null;
+});
 
 const props = defineProps<{
     developer: Developer;
@@ -66,7 +80,8 @@ function formatExperience(years: number | null): string {
                     DevLink
                 </a>
 
-                <a href="/login" class="rounded-md border px-4 py-2 text-sm transition hover:bg-muted">
+                <a v-if="!auth.user" href="/login"
+                    class="rounded-md border px-4 py-2 text-sm transition hover:bg-muted">
                     Se connecter
                 </a>
             </header>

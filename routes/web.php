@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\AnswerVoteController;
 use App\Http\Controllers\CollaborationOfferController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\DeveloperProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -16,6 +19,53 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+
+    // Questions
+    Route::get('/questions/create', [QuestionController::class, 'create'])
+        ->name('questions.create');
+
+    Route::post('/questions', [QuestionController::class, 'store'])
+        ->name('questions.store');
+
+    Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])
+        ->name('questions.edit');
+
+    Route::put('/questions/{question}', [QuestionController::class, 'update'])
+        ->name('questions.update');
+
+    Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])
+        ->name('questions.destroy');
+
+    // Answers
+    Route::post(
+        '/questions/{question}/answers',
+        [AnswerController::class, 'store']
+    )->name('questions.answers.store');
+
+    Route::put(
+        '/questions/{question}/answers/{answer}',
+        [AnswerController::class, 'update']
+    )->name('questions.answers.update');
+
+    Route::delete(
+        '/questions/{question}/answers/{answer}',
+        [AnswerController::class, 'destroy']
+    )->name('questions.answers.destroy');
+
+    Route::post(
+        '/questions/{question}/answers/{answer}/accept',
+        [AnswerController::class, 'accept']
+    )->name('questions.answers.accept');
+
+    Route::put(
+        '/questions/{question}/answers/{answer}/vote',
+        [AnswerVoteController::class, 'store']
+    )->name('questions.answers.vote');
+
+    Route::delete(
+        '/questions/{question}/answers/{answer}/vote',
+        [AnswerVoteController::class, 'destroy']
+    )->name('questions.answers.vote.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -196,4 +246,11 @@ Route::get('/projects', [ProjectController::class, 'index'])
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('projects.show');
+
+// Question
+Route::get('/questions', [QuestionController::class, 'index'])
+    ->name('questions.index');
+
+Route::get('/questions/{question}', [QuestionController::class, 'show'])
+    ->name('questions.show');
 require __DIR__ . '/settings.php';

@@ -190,4 +190,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
             'reviewed_by'
         );
     }
+
+    public function answerVotes(): HasMany
+    {
+        return $this->hasMany(AnswerVote::class);
+    }
 }

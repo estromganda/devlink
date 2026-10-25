@@ -10,8 +10,24 @@ export type User = {
     [key: string]: unknown;
 };
 
+export type Profile = {
+    id: number;
+    user_id: number;
+    headline: string;
+    bio: string | null;
+    avatar_path: string | null;
+    location: string | null;
+    website: string | null;
+    github_url: string | null;
+    linkedin_url: string | null;
+    created_at: string;
+    updated_at: string;
+    [key: string]: unknown;
+};
+
 export type Auth = {
     user: User;
+    profile: Profile;
 };
 
 export type Passkey = {

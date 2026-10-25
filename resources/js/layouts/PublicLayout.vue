@@ -6,14 +6,11 @@ type AuthUser = {
     id: number;
     name: string;
     email?: string;
-    avatar_path?: string | null;
 };
 
 const page = usePage();
 
-const auth = computed(() => page.props.auth as {
-    user: AuthUser | null;
-});
+const auth = page.props.auth
 
 const flash = page.props.flash as {
     success?: string | null;
@@ -71,6 +68,10 @@ function getInitial(name?: string | null): string {
                         :class="{ 'text-primary': page.url.startsWith('/messages') }">
                         Messages
                     </Link>
+                    <Link href="/questions" class="transition hover:text-primary"
+                        :class="{ 'text-primary': page.url.startsWith('/questions') }">
+                        Q&A
+                    </Link>
                 </div>
 
                 <!-- Espace utilisateur -->
@@ -82,7 +83,7 @@ function getInitial(name?: string | null): string {
                             <!-- Avatar ou initiale -->
                             <div
                                 class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-bold text-primary-foreground ring-2 ring-border">
-                                <img v-if="auth.user.avatar_path" :src="`/storage/${auth.user.avatar_path}`"
+                                <img v-if="auth.profile.avatar_path" :src="`/storage/${auth.profile.avatar_path}`"
                                     :alt="`Avatar de ${auth.user.name}`" class="h-full w-full object-cover" />
 
                                 <span v-else>

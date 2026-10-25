@@ -17,6 +17,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
+            $table->timestamps();
             $table->primary(['post_id', 'tag_id']);
         });
     }
