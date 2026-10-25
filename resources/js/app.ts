@@ -6,6 +6,7 @@ import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
 import { configureEcho } from '@laravel/echo-vue';
 import PublicLayout from '@/layouts/PublicLayout.vue';
+import './echo';
 
 configureEcho({
     broadcaster: 'reverb',

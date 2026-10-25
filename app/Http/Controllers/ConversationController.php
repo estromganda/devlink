@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\ConversationMember;
 use App\Models\Message;
@@ -276,7 +277,7 @@ class ConversationController extends Controller
             $validated,
             $userId
         ) {
-            Message::create([
+            $message = Message::create([
                 'conversation_id' => $conversation->id,
                 'sender_id' => $userId,
                 'body' => $validated['body'],
@@ -292,6 +293,7 @@ class ConversationController extends Controller
                 ->update([
                     'last_read_at' => now(),
                 ]);
+            broadcast(new MessageSent($message));
         });
 
         return redirect()

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, nextTick, ref, watch } from 'vue';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import PublicLayout from '@/layouts/PublicLayout.vue';
 
@@ -48,6 +48,37 @@ interface PaginationLink {
     active: boolean;
 }
 
+const realtimeMessages = ref<Message[]>([]);
+
+const allMessages = computed(() => [
+    ...props.messages.data,
+    ...realtimeMessages.value,
+]);
+
+onMounted(() => {
+    window.Echo
+        .private(`conversation.${props.conversation.id}`)
+        .listen('.message.sent', (event: { message: Message }) => {
+            const incoming = event.message;
+
+            const alreadyLoaded = props.messages.data.some(
+                (message: Message) => message.id === incoming.id,
+            );
+
+            const alreadyReceived = realtimeMessages.value.some(
+                (message) => message.id === incoming.id,
+            );
+
+            if (!alreadyLoaded && !alreadyReceived) {
+                realtimeMessages.value.push(incoming);
+            }
+        });
+});
+
+onUnmounted(() => {
+    window.Echo.leave(`conversation.${props.conversation.id}`);
+});
+
 const props = defineProps<{
     conversation: Conversation;
     messages: {
@@ -60,6 +91,8 @@ const props = defineProps<{
     currentUserId: number;
 }>();
 
+props.messages.data = props.messages.data.reverse()
+
 const form = useForm({
     body: '',
     reply_to_id: null as number | null,
@@ -67,9 +100,6 @@ const form = useForm({
 
 const messageContainer = ref<HTMLElement | null>(null);
 
-const orderedMessages = computed(() =>
-    [...props.messages.data].reverse(),
-);
 
 const conversationTitle = computed(() => {
     if (props.conversation.title) {
@@ -203,7 +233,7 @@ watch(
                         </Link>
                     </div>
 
-                    <div v-for="message in orderedMessages" :key="message.id" class="flex"
+                    <div v-for="message in allMessages" :key="message.id" class="flex"
                         :class="isOwnMessage(message) ? 'justify-end' : 'justify-start'">
                         <div class="max-w-[85%] rounded-2xl px-4 py-3 shadow-sm sm:max-w-[75%]" :class="isOwnMessage(message)
                             ? 'rounded-br-md bg-teal-600 text-white'
