@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import PublicLayout from '@/layouts/PublicLayout.vue';
-
-defineOptions({
-    layout: PublicLayout,
-});
 
 interface DeveloperProfile {
     avatar_path: string | null;
@@ -140,8 +135,8 @@ function startConversation(developer: Developer) {
         <nav v-if="developers.last_page > 1" class="mt-6 flex flex-wrap justify-center gap-2" aria-label="Pagination">
             <template v-for="(link, index) in developers.links" :key="index">
                 <Link v-if="link.url" :href="link.url" class="rounded-lg border px-3 py-2 text-sm" :class="link.active
-                        ? 'border-teal-600 bg-teal-600 text-white'
-                        : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'border-teal-600 bg-teal-600 text-white'
+                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                     " v-html="link.label" />
 
                 <span v-else class="rounded-lg border border-gray-100 px-3 py-2 text-sm text-gray-300"

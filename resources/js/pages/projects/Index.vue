@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
-import PublicLayout from '@/layouts/PublicLayout.vue';
-
-defineOptions({
-    layout: PublicLayout,
-});
 
 interface ProjectOwner {
     id: number;
@@ -259,8 +254,8 @@ function visitPage(url: string | null): void {
                     :disabled="!link.url" :aria-current="link.active ? 'page' : undefined"
                     class="rounded-lg border px-3 py-2 text-sm transition disabled:cursor-not-allowed disabled:opacity-40"
                     :class="link.active
-                            ? 'border-primary bg-primary text-primary-foreground'
-                            : 'bg-background hover:bg-muted'
+                        ? 'border-primary bg-primary text-primary-foreground'
+                        : 'bg-background hover:bg-muted'
                         " @click="visitPage(link.url)" v-html="link.label" />
             </nav>
         </section>

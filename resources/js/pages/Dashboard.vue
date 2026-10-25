@@ -2,6 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { dashboard } from '@/routes';
+import Welcome from './Welcome.vue';
 
 defineOptions({
     layout: {
@@ -16,9 +17,12 @@ defineOptions({
 </script>
 
 <template>
+
     <Head title="Dashboard" />
 
-    <div
+    <Welcome />
+
+    <!-- <div
         class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
     >
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -43,5 +47,5 @@ defineOptions({
         >
             <PlaceholderPattern />
         </div>
-    </div>
+    </div> -->
 </template>

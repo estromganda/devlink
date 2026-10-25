@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, nextTick, ref, watch } from 'vue';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import PublicLayout from '@/layouts/PublicLayout.vue';
-
-defineOptions({
-    layout: PublicLayout,
-});
 
 interface User {
     id: number;

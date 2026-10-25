@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import PublicLayout from '@/layouts/PublicLayout.vue';
-
-defineOptions({
-    layout: PublicLayout,
-});
 
 interface ProjectOwner {
     id: number;
@@ -116,8 +111,8 @@ function visitPage(url: string | null): void {
                         </span>
 
                         <span class="rounded-full px-3 py-1 text-xs font-semibold" :class="project.visibility === 'public'
-                                ? 'bg-emerald-500/10 text-emerald-600'
-                                : 'bg-amber-500/10 text-amber-600'
+                            ? 'bg-emerald-500/10 text-emerald-600'
+                            : 'bg-amber-500/10 text-amber-600'
                             ">
                             {{ project.visibility === 'public' ? 'Public' : 'Privé' }}
                         </span>

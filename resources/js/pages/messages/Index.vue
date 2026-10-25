@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import PublicLayout from '@/layouts/PublicLayout.vue';
-
-defineOptions({
-    layout: PublicLayout,
-});
 
 interface User {
     id: number;
@@ -164,8 +159,8 @@ function formatDate(date: string): string {
             aria-label="Pagination">
             <template v-for="(link, index) in conversations.links" :key="index">
                 <Link v-if="link.url" :href="link.url" class="rounded-lg border px-3 py-2 text-sm" :class="link.active
-                        ? 'border-teal-600 bg-teal-600 text-white'
-                        : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'border-teal-600 bg-teal-600 text-white'
+                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                     " v-html="link.label" />
 
                 <span v-else class="rounded-lg border border-gray-100 px-3 py-2 text-sm text-gray-300"

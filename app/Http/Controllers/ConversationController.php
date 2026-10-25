@@ -7,6 +7,7 @@ use App\Models\Conversation;
 use App\Models\ConversationMember;
 use App\Models\Message;
 use App\Models\User;
+use App\Notifications\NewMessageNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -235,10 +236,8 @@ class ConversationController extends Controller
     /**
      * Envoie un message dans une conversation.
      */
-    public function send(
-        Request $request,
-        Conversation $conversation
-    ): RedirectResponse {
+    public function send(Request $request, Conversation $conversation): RedirectResponse
+    {
         $userId = $request->user()->id;
 
         $membership = ConversationMember::query()
@@ -272,11 +271,7 @@ class ConversationController extends Controller
             }
         }
 
-        DB::transaction(function () use (
-            $conversation,
-            $validated,
-            $userId
-        ) {
+        $message = DB::transaction(function () use ($conversation, $validated, $userId, $request) {
             $message = Message::create([
                 'conversation_id' => $conversation->id,
                 'sender_id' => $userId,
@@ -293,8 +288,18 @@ class ConversationController extends Controller
                 ->update([
                     'last_read_at' => now(),
                 ]);
-            broadcast(new MessageSent($message));
+            return $message;
         });
+        // Notification
+        $conversation->loadMissing('members');
+        foreach ($conversation->users as $member) {
+            if ($member->id === $request->user()->id) {
+                continue;
+            }
+            $member->notify(new NewMessageNotification($message));
+        }
+        // Broadcast
+        broadcast(new MessageSent($message));
 
         return redirect()
             ->route('messages.show', $conversation->id)

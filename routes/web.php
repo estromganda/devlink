@@ -8,6 +8,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\DeveloperProfileController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProjectController;
@@ -200,6 +201,20 @@ Route::middleware(['auth'])->group(function () {
         'send',
     ])->whereNumber('conversation')
         ->name('messages.send');
+
+    // Notifications
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
+
+    Route::patch('/notifications/{notification}/read', [
+        NotificationController::class,
+        'markAsRead',
+    ])->name('notifications.read');
+
+    Route::patch('/notifications/read-all', [
+        NotificationController::class,
+        'markAllAsRead',
+    ])->name('notifications.read-all');
 });
 
 Route::get('/developers', [

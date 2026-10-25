@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Post;
+use App\Notifications\AnswerAcceptedNotification;
+use App\Notifications\NewAnswerNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,11 +40,15 @@ class AnswerController extends Controller
             'body' => ['required', 'string', 'min:10', 'max:20000'],
         ]);
 
-        $question->answers()->create([
+        $answer = $question->answers()->create([
             'user_id' => $request->user()->id,
             'body' => $validated['body'],
             'is_accepted' => false,
         ]);
+        $questionOwner = $question->user;
+        if ($questionOwner->id !== $request->user()->id) {
+            $questionOwner->notify(new NewAnswerNotification($answer));
+        }
 
         return redirect()
             ->route('questions.show', $question)
@@ -107,11 +113,8 @@ class AnswerController extends Controller
             ->with('success', 'Ta réponse a été supprimée.');
     }
 
-    public function accept(
-        Request $request,
-        Post $question,
-        Answer $answer
-    ): RedirectResponse {
+    public function accept(Request $request, Post $question, Answer $answer): RedirectResponse
+    {
         $this->ensureQuestionIsAvailable($question);
 
         abort_unless(
@@ -126,7 +129,7 @@ class AnswerController extends Controller
 
         abort_if($answer->deleted_at !== null, 404);
 
-        DB::transaction(function () use ($question, $answer) {
+        DB::transaction(function () use ($question, $answer, $request) {
             // Verrouille la question afin d'éviter deux acceptations simultanées.
             $lockedQuestion = Post::query()
                 ->whereKey($question->id)
@@ -145,6 +148,9 @@ class AnswerController extends Controller
                 ->update(['is_accepted' => false]);
 
             $answer->update(['is_accepted' => true]);
+            if ($answer->user_id !== $request->user()->id) {
+                $answer->user->notify(new AnswerAcceptedNotification($answer));
+            }
         });
 
         return redirect()
