@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import {
+    ArrowRight,
+    Code2,
+    LockKeyhole,
+    ShieldCheck,
+    Sparkles,
+    Users,
+} from '@lucide/vue';
+
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import TextLink from '@/components/TextLink.vue';
@@ -8,15 +17,16 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import PasskeyVerify from '@/components/PasskeyVerify.vue';
+
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
 defineOptions({
     layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        title: 'Connexion à DevLink',
+        description: 'Connecte-toi pour retrouver la communauté des développeurs.',
     },
 });
 
@@ -27,84 +37,200 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Log in" />
 
-    <div
-        v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
-    >
-        {{ status }}
-    </div>
+    <Head title="Connexion" />
 
-    <PasskeyVerify />
+    <main class="relative isolate w-full min-w-0 overflow-hidden">
+        <!-- Background -->
+        <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+            <div class="absolute -left-32 -top-32 size-96 rounded-full bg-primary/10 blur-3xl" />
+            <div class="absolute -bottom-40 -right-24 size-96 rounded-full bg-violet-500/10 blur-3xl" />
 
-    <Form
-        v-bind="store.form()"
-        :reset-on-success="['password']"
-        v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
-    >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
-                <Label for="email">Email address</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    v-focus
-                    :tabindex="1"
-                    autocomplete="email"
-                    placeholder="email@example.com"
-                />
-                <InputError :message="errors.email" />
-            </div>
+            <div class="absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
+                style="background-image: radial-gradient(currentColor 1px, transparent 1px); background-size: 24px 24px;" />
+        </div>
 
-            <div class="grid gap-2">
-                <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
-                    <TextLink
-                        v-if="canResetPassword"
-                        :href="request()"
-                        class="text-sm"
-                        :tabindex="5"
-                    >
-                        Forgot your password?
-                    </TextLink>
+        <div
+            class="mx-auto grid w-full min-w-0 grid-cols-1 items-center gap-8 px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-2 lg:gap-12 lg:px-10 xl:gap-16 xl:px-16 2xl:gap-24 2xl:px-24">
+            <!-- Left panel: desktop -->
+            <section class="hidden min-w-0 lg:block">
+                <div
+                    class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-medium text-primary">
+                    <Sparkles class="size-4" />
+                    La communauté des développeurs
                 </div>
-                <PasswordInput
-                    id="password"
-                    name="password"
-                    required
-                    :tabindex="2"
-                    autocomplete="current-password"
-                    placeholder="Password"
-                />
-                <InputError :message="errors.password" />
-            </div>
 
-            <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
-                    <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
-                </Label>
-            </div>
+                <h1
+                    class="mt-8 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-white xl:text-5xl 2xl:text-6xl">
+                    Tes idées méritent
+                    <span class="block text-primary">de prendre vie.</span>
+                </h1>
 
-            <Button
-                type="submit"
-                class="mt-4 w-full"
-                :tabindex="4"
-                :disabled="processing"
-                data-test="login-button"
-            >
-                <Spinner v-if="processing" />
-                Log in
-            </Button>
+                <p class="mt-6 max-w-2xl text-base leading-8 text-muted-foreground xl:text-lg">
+                    Connecte-toi à DevLink pour partager tes connaissances,
+                    découvrir des projets inspirants et collaborer avec
+                    des développeurs qui partagent ta passion.
+                </p>
+
+                <div class="mt-10 grid grid-cols-1 gap-4 xl:grid-cols-2">
+                    <article
+                        class="flex min-w-0 items-start gap-4 rounded-2xl border bg-background/80 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
+                        <div
+                            class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                            <Code2 class="size-6" />
+                        </div>
+
+                        <div class="min-w-0">
+                            <h2 class="font-semibold">Partage tes connaissances</h2>
+                            <p class="mt-2 text-sm leading-6 text-muted-foreground">
+                                Pose tes questions, apporte tes réponses et progresse avec la communauté.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article
+                        class="flex min-w-0 items-start gap-4 rounded-2xl border bg-background/80 p-5 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
+                        <div
+                            class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400">
+                            <Users class="size-6" />
+                        </div>
+
+                        <div class="min-w-0">
+                            <h2 class="font-semibold">Construis avec les autres</h2>
+                            <p class="mt-2 text-sm leading-6 text-muted-foreground">
+                                Trouve des collaborateurs et transforme tes idées en projets concrets.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="mt-8 flex items-center gap-3 text-sm text-muted-foreground">
+                    <ShieldCheck class="size-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                    <span>Retrouve ton espace, tes projets et tes conversations.</span>
+                </div>
+            </section>
+
+            <!-- Right panel: login -->
+            <section class="w-full min-w-0">
+                <div
+                    class="mx-auto w-full min-w-0 max-w-none overflow-hidden rounded-2xl border bg-card shadow-xl shadow-black/4 dark:shadow-black/20 sm:rounded-3xl">
+                    <!-- Card header -->
+                    <div class="border-b px-5 py-6 sm:px-8 sm:py-8 xl:px-10">
+                        <div class="flex items-center gap-3 lg:hidden">
+                            <div
+                                class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/20">
+                                <Code2 class="size-6" />
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="text-lg font-extrabold tracking-tight">DevLink</p>
+                                <p class="text-xs text-muted-foreground">La communauté des développeurs</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="mt-6 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary lg:mt-0">
+                            <LockKeyhole class="size-6" />
+                        </div>
+
+                        <h2 class="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+                            Bon retour !
+                        </h2>
+
+                        <p class="mt-2 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+                            Connecte-toi à ton compte pour reprendre là où tu t'es arrêté.
+                        </p>
+                    </div>
+
+                    <div class="p-5 sm:p-8 xl:p-10">
+                        <!-- Status -->
+                        <div v-if="status" role="status"
+                            class="mb-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                            {{ status }}
+                        </div>
+
+                        <!-- Passkey authentication -->
+                        <PasskeyVerify />
+
+                        <div class="my-6 flex items-center gap-4">
+                            <div class="h-px flex-1 bg-border" />
+                            <span class="shrink-0 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                Ou avec ton e-mail
+                            </span>
+                            <div class="h-px flex-1 bg-border" />
+                        </div>
+
+                        <!-- Form -->
+                        <Form v-bind="store.form()" :reset-on-success="['password']" v-slot="{ errors, processing }"
+                            class="w-full min-w-0 space-y-5">
+                            <div class="grid min-w-0 grid-cols-1 gap-5 xl:grid-cols-2 xl:gap-6">
+                                <div class="min-w-0 space-y-2 xl:col-span-2">
+                                    <Label for="email" class="text-sm font-semibold">
+                                        Adresse e-mail
+                                    </Label>
+
+                                    <Input id="email" type="email" name="email" required v-focus :tabindex="1"
+                                        autocomplete="email" placeholder="toi@exemple.com"
+                                        class="h-12 w-full min-w-0 rounded-xl px-4" :aria-invalid="!!errors.email" />
+
+                                    <InputError :message="errors.email" />
+                                </div>
+
+                                <div class="min-w-0 space-y-2 xl:col-span-2">
+                                    <div class="flex flex-wrap items-center justify-between gap-2">
+                                        <Label for="password" class="text-sm font-semibold">
+                                            Mot de passe
+                                        </Label>
+
+                                        <TextLink v-if="canResetPassword" :href="request()"
+                                            class="text-sm font-medium text-primary hover:underline" :tabindex="5">
+                                            Mot de passe oublié ?
+                                        </TextLink>
+                                    </div>
+
+                                    <PasswordInput id="password" name="password" required :tabindex="2"
+                                        autocomplete="current-password" placeholder="Ton mot de passe" />
+
+                                    <InputError :message="errors.password" />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between gap-3">
+                                <Label for="remember"
+                                    class="flex cursor-pointer items-center gap-3 text-sm font-normal text-muted-foreground">
+                                    <Checkbox id="remember" name="remember" :tabindex="3" />
+                                    Se souvenir de moi
+                                </Label>
+                            </div>
+
+                            <Button type="submit" class="mt-2 h-12 w-full rounded-xl text-sm font-semibold"
+                                :tabindex="4" :disabled="processing" data-test="login-button">
+                                <Spinner v-if="processing" />
+                                <span>{{ processing ? 'Connexion en cours…' : 'Se connecter' }}</span>
+                                <ArrowRight v-if="!processing" class="size-4" />
+                            </Button>
+                        </Form>
+
+                        <!-- Register -->
+                        <div class="mt-7 border-t pt-6 text-center">
+                            <p class="text-sm leading-6 text-muted-foreground">
+                                Tu n'as pas encore de compte ?
+                                <TextLink :href="register()" :tabindex="6"
+                                    class="font-semibold text-primary hover:underline">
+                                    Créer un compte
+                                </TextLink>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-t bg-muted/30 px-5 py-4 sm:px-8">
+                        <p class="flex items-center justify-center gap-2 text-center text-xs text-muted-foreground">
+                            <ShieldCheck class="size-4 shrink-0" />
+                            Connecte-toi et retrouve ta communauté.
+                        </p>
+                    </div>
+                </div>
+            </section>
         </div>
-
-        <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
-        </div>
-    </Form>
+    </main>
 </template>
