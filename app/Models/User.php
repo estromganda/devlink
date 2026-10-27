@@ -195,4 +195,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->hasMany(AnswerVote::class);
     }
+
+    public function gitConnections(): HasMany
+    {
+        return $this->hasMany(GitConnection::class);
+    }
 }

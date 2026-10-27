@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -211,12 +212,31 @@ class ProjectController extends Controller
             );
         }
 
+        $repositories = ProjectRepository::query()
+            ->where('project_id', $project->id)
+            ->where('is_active', true)
+            ->orderBy('created_at')
+            ->get([
+                'id',
+                'provider',
+                'full_name',
+                'name',
+                'description',
+                'repository_url',
+                'default_branch',
+                'is_private',
+                'connected_by',
+                'last_synced_at',
+                'created_at',
+            ]);
+
         return Inertia::render('projects/Show', [
             'project' => $project,
             'canEdit' => $user
                 && (int) $project->owner_id === (int) $user->id,
             'canApply' => $canApply,
             'existingOfferStatus' => $existingOfferStatus,
+            'repositories' => $repositories,
         ]);
     }
 
@@ -409,5 +429,23 @@ class ProjectController extends Controller
         }
 
         return $slug;
+    }
+
+    public function detachRepository(Request $request, string $slug, ProjectRepository $repository): RedirectResponse
+    {
+        $project = Project::query()
+            ->where('slug', $slug)
+            ->where('owner_id', $request->user()->id)
+            ->firstOrFail();
+
+        abort_unless(
+            $repository->project_id === $project->id,
+            404
+        );
+
+        $repository->delete();
+
+        return to_route('projects.show', $project->slug)
+            ->with('success', 'Le dépôt a été retiré du projet DevLink.');
     }
 }

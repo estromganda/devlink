@@ -8,10 +8,13 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\DeveloperProfileController;
+use App\Http\Controllers\GitHubConnectionController;
+use App\Http\Controllers\GitHubRepositoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectRepositoryCommitController;
 use App\Http\Controllers\ProjectTaskController;
 use App\Http\Controllers\ProjectTeamController;
 use App\Http\Controllers\QuestionController;
@@ -259,6 +262,39 @@ Route::middleware(['auth'])->group(function () {
         NotificationController::class,
         'markAllAsRead',
     ])->name('notifications.read-all');
+
+    // Integration github
+    Route::get(
+        '/auth/github/redirect',
+        [GitHubConnectionController::class, 'redirect']
+    )->name('auth.github.redirect');
+
+    Route::get(
+        '/auth/github/callback',
+        [GitHubConnectionController::class, 'callback']
+    )->name('auth.github.callback');
+
+    Route::get('/github/repositories', [GitHubRepositoryController::class, 'index'])
+        ->name('github.repositories.index');
+
+    Route::post(
+        '/github/repositories/associate',
+        [GitHubRepositoryController::class, 'associate']
+    )->name('github.repositories.associate');
+
+    Route::delete(
+        '/projects/{slug}/repositories/{repository}',
+        [ProjectController::class, 'detachRepository']
+    )->name('projects.repositories.detach');
+
+    Route::post(
+        '/projects/{slug}/repositories/{repository}/sync',
+        [GitHubRepositoryController::class, 'sync']
+    )->name('projects.repositories.sync');
+    Route::get(
+        '/projects/{slug}/repositories/{repository}/commits',
+        [ProjectRepositoryCommitController::class, 'index']
+    )->name('projects.repositories.commits');
 });
 
 Route::get('/developers', [
