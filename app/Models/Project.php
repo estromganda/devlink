@@ -60,4 +60,9 @@ class Project extends Model
     {
         return $this->hasMany(CollaborationOffer::class);
     }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(ProjectTask::class);
+    }
 }

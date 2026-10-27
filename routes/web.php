@@ -12,6 +12,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectTaskController;
+use App\Http\Controllers\ProjectTeamController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
@@ -133,6 +135,48 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/{slug}', [ProjectController::class, 'destroy'])
         ->where('slug', '[a-z0-9-]+')
         ->name('projects.destroy');
+
+    // Projet teams
+    Route::get(
+        '/projects/{project:slug}/team',
+        [ProjectTeamController::class, 'index']
+    )->name('projects.team.index');
+
+    Route::post(
+        '/projects/{project:slug}/team',
+        [ProjectTeamController::class, 'store']
+    )->name('projects.team.store');
+
+    Route::patch(
+        '/projects/{project:slug}/team/{member}',
+        [ProjectTeamController::class, 'update']
+    )->name('projects.team.update');
+
+    Route::delete(
+        '/projects/{project:slug}/team/{member}',
+        [ProjectTeamController::class, 'destroy']
+    )->name('projects.team.destroy');
+
+    // Projets task
+    Route::get(
+        '/projects/{project:slug}/tasks',
+        [ProjectTaskController::class, 'index']
+    )->name('projects.tasks.index');
+
+    Route::post(
+        '/projects/{project:slug}/tasks',
+        [ProjectTaskController::class, 'store']
+    )->name('projects.tasks.store');
+
+    Route::patch(
+        '/projects/{project:slug}/tasks/{task}',
+        [ProjectTaskController::class, 'update']
+    )->name('projects.tasks.update');
+
+    Route::delete(
+        '/projects/{project:slug}/tasks/{task}',
+        [ProjectTaskController::class, 'destroy']
+    )->name('projects.tasks.destroy');
 
     // Demandes envoyées par le développeur connecté
     Route::get('/my-collaboration-requests', [

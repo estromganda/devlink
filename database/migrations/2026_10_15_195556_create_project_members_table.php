@@ -20,7 +20,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             // $table->string('role', 30)->default('contributor');
-            $table->enum('role', ['contributor', 'owner'])->default('contributor');
+            $table->enum('role', ['contributor', 'owner', 'maintainer', 'manager'])->default('contributor');
             $table->timestamp('joined_at')->useCurrent();
 
             $table->timestamps();
