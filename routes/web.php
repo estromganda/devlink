@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AnswerVoteController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\CollaborationOfferController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
@@ -22,6 +23,35 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
 
+/*
+|--------------------------------------------------------------------------
+| Social authentication
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/auth/google/redirect', [
+    SocialAuthController::class,
+    'redirect',
+])->defaults('provider', 'google')
+    ->name('auth.google.redirect');
+
+Route::get('/auth/google/callback', [
+    SocialAuthController::class,
+    'callback',
+])->defaults('provider', 'google')
+    ->name('auth.google.callback');
+
+Route::get('/auth/github/login', [
+    SocialAuthController::class,
+    'redirect',
+])->defaults('provider', 'github')
+    ->name('auth.github.login');
+
+Route::get('/auth/github/login/callback', [
+    SocialAuthController::class,
+    'callback',
+])->defaults('provider', 'github')
+    ->name('auth.github.login.callback');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');

@@ -46,5 +46,16 @@ return [
         'client_secret' => env('GITLAB_CLIENT_SECRET'),
         'redirect' => env('GITLAB_REDIRECT_URI'),
     ],
+    'google_auth' => [
+        'client_id' => env('GOOGLE_AUTH_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_AUTH_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_AUTH_REDIRECT_URI'),
+    ],
+
+    'github_auth' => [
+        'client_id' => env('GITHUB_AUTH_CLIENT_ID'),
+        'client_secret' => env('GITHUB_AUTH_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_AUTH_REDIRECT_URI'),
+    ],
 
 ];

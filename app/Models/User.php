@@ -200,4 +200,12 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->hasMany(GitConnection::class);
     }
+
+    /**
+     * Identités sociales associées à cet utilisateur.
+     */
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
 }

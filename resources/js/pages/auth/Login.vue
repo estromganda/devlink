@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+
 import {
     ArrowRight,
     Code2,
@@ -32,6 +33,7 @@ defineOptions({
 
 defineProps<{
     status?: string;
+    error?: string;
     canResetPassword: boolean;
 }>();
 </script>
@@ -148,17 +150,62 @@ defineProps<{
                             class="mb-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3 text-sm font-medium text-emerald-700 dark:text-emerald-400">
                             {{ status }}
                         </div>
+                        <!-- Erreur d'authentification -->
+                        <div v-if="error" role="alert"
+                            class="mb-5 rounded-xl border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm font-medium text-destructive">
+                            {{ error }}
+                        </div>
 
-                        <!-- Passkey authentication -->
-                        <PasskeyVerify />
+                        <!-- Authentification sociale -->
+                        <!-- Authentification Google et GitHub -->
+                        <div class="space-y-3">
+                            <!-- Google -->
+                            <a href="/auth/google/redirect"
+                                class="flex h-12 w-full items-center justify-center gap-3 rounded-xl border bg-background px-4 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="size-5 shrink-0"
+                                    aria-hidden="true">
+                                    <path fill="#EA4335"
+                                        d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"
+                                        transform="translate(0 4)" />
+                                    <path fill="#4285F4"
+                                        d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.99 46.98 31.8 46.98 24.55Z" />
+                                    <path fill="#FBBC05"
+                                        d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a23.9 23.9 0 0 0 0 21.56l7.98-6.19Z"
+                                        transform="translate(0 4)" />
+                                    <path fill="#34A853"
+                                        d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.14 1.44-4.89 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"
+                                        transform="translate(0 -4)" />
+                                </svg>
 
+                                <span>Continuer avec Google</span>
+                            </a>
+
+                            <!-- GitHub -->
+                            <a href="/auth/github/login"
+                                class="flex h-12 w-full items-center justify-center gap-3 rounded-xl border bg-background px-4 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    class="size-5 shrink-0 fill-current" aria-hidden="true">
+                                    <path
+                                        d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.7-1.49-2.47-.28-5.07-1.24-5.07-5.5 0-1.21.43-2.2 1.15-2.98-.12-.28-.5-1.41.11-2.94 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.66.11 2.94.72.78 1.15 1.77 1.15 2.98 0 4.27-2.6 5.22-5.08 5.5.4.35.75 1.02.75 2.06v3.08c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+                                </svg>
+
+                                <span>Continuer avec GitHub</span>
+                            </a>
+                        </div>
+
+                        <!-- Séparateur -->
                         <div class="my-6 flex items-center gap-4">
                             <div class="h-px flex-1 bg-border" />
+
                             <span class="shrink-0 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                                 Ou avec ton e-mail
                             </span>
+
                             <div class="h-px flex-1 bg-border" />
                         </div>
+
+                        <!-- Authentification par passkey -->
+                        <PasskeyVerify />
 
                         <!-- Form -->
                         <Form v-bind="store.form()" :reset-on-success="['password']" v-slot="{ errors, processing }"
