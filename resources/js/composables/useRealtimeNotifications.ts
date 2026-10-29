@@ -105,7 +105,7 @@ export function useRealtimeNotifications() {
             unreadCount.value = sharedCount.value;
         }
 
-        const userId = auth.value.user?.id;
+        const userId = auth?.value?.user?.id;
 
         if (userId !== undefined && userId !== null) {
             subscribeToUser(String(userId));

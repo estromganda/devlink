@@ -3,7 +3,7 @@ import AppContent from '@/components/AppContent.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppShell from '@/components/AppShell.vue';
 import { Toaster } from '@/components/ui/sonner';
-import type { BreadcrumbItem } from '@/types';
+import type { Auth, BreadcrumbItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { onMounted, onUpdated, ref } from 'vue';
 
@@ -11,7 +11,7 @@ type Props = {
     breadcrumbs?: BreadcrumbItem[];
 };
 
-const auth = usePage().props.auth;
+const auth: Auth | null = usePage().props.auth;
 withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 });
@@ -137,13 +137,13 @@ setTimeout(() => {
                         <h2 class="text-sm font-bold">Mon compte</h2>
 
                         <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
-                            <li v-if="auth.user">
+                            <li v-if="auth?.user">
                                 <Link href="/settings/developer-profile" class="transition hover:text-primary">
                                     Mon profil développeur
                                 </Link>
                             </li>
 
-                            <li v-if="auth.user">
+                            <li v-if="auth?.user">
                                 <Link href="/settings/profile" class="transition hover:text-primary">
                                     Paramètres du compte
                                 </Link>
@@ -155,23 +155,23 @@ setTimeout(() => {
                                 </Link>
                             </li>
 
-                            <li v-if="!auth.user">
+                            <li v-if="!auth?.user">
                                 <Link href="/login" class="transition hover:text-primary">
                                     Se connecter
                                 </Link>
                             </li>
 
-                            <li v-if="!auth.user">
+                            <li v-if="!auth?.user">
                                 <Link href="/register" class="transition hover:text-primary">
                                     Créer un compte
                                 </Link>
                             </li>
-                            <li v-if="auth.user">
+                            <li v-if="auth?.user">
                                 <Link href="/my-projects" class="nav-link">
                                     Mes projets
                                 </Link>
                             </li>
-                            <li v-if="auth.user">
+                            <li v-if="auth?.user">
                                 <Link href="/my-collaboration-requests" class="nav-link">
                                     Mes candidatures
                                 </Link>

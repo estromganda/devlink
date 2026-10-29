@@ -44,7 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // En développement, conserver les détails utiles au débogage.
             if (app()->environment('local') && config('app.debug')) {
-                return null;
+                // return null;
             }
 
             // Ne pas remplacer les redirections d'authentification.
