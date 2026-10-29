@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Technology;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -95,7 +96,7 @@ class DeveloperController extends Controller
     /**
      * Afficher publiquement le profil d'un développeur.
      */
-    public function show(User $user): Response
+    public function show(User $user): Response | RedirectResponse
     {
         $user->load([
             'profile',
@@ -104,7 +105,10 @@ class DeveloperController extends Controller
 
         $profile = $user->profile;
 
-        abort_if($profile === null, 404);
+        // abort_if($profile === null, 404);
+        if ($profile === null) {
+            return back()->with("error", "Cet developeur n'a pas encore mis à jour son profile");
+        }
 
         $technologies = $user->technologies
             ->map(fn($technology) => [

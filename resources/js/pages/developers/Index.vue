@@ -130,12 +130,12 @@ function paginationLabel(label: string): string {
 
     <Head title="Développeurs" />
 
-    <main class="min-h-screen bg-gray-50/70 py-6 dark:bg-gray-950 sm:py-10">
+    <main class="min-h-screen bg-gray-50/70 py-6 dark:bg-card sm:py-10">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
             <!-- En-tête -->
             <header
-                class="relative mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                class="relative mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-card shadow-sm dark:border-gray-800">
                 <div
                     class="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-teal-500/10 blur-3xl" />
                 <div
@@ -151,7 +151,7 @@ function paginationLabel(label: string): string {
                             </div>
 
                             <h1
-                                class="max-w-3xl text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
+                                class="max-w-3xl text-3xl font-bold tracking-tight text-foreground  sm:text-4xl lg:text-5xl">
                                 Rencontrez les développeurs.
                                 <span class="text-teal-600 dark:text-teal-400">
                                     Construisez ensemble.
@@ -175,7 +175,7 @@ function paginationLabel(label: string): string {
                                     </span>
                                 </div>
 
-                                <p class="mt-3 text-2xl font-bold text-gray-900 dark:text-white">
+                                <p class="mt-3 text-2xl font-bold text-foreground ">
                                     {{ developers.total }}
                                 </p>
 
@@ -193,7 +193,7 @@ function paginationLabel(label: string): string {
                                     </span>
                                 </div>
 
-                                <p class="mt-3 text-2xl font-bold text-gray-900 dark:text-white">
+                                <p class="mt-3 text-2xl font-bold text-foreground ">
                                     {{ technologies.length }}
                                 </p>
 
@@ -208,65 +208,55 @@ function paginationLabel(label: string): string {
 
             <!-- Recherche et filtres -->
             <section
-                class="mb-8 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                <div class="flex items-center gap-3 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-6">
-                    <div
-                        class="flex size-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
+                class="mb-8 overflow-hidden rounded-2xl border border-gray-200 bg-card shadow-sm dark:border-gray-800">
+                <div class="flex items-center gap-3 border-b p-5 sm:px-6">
+                    <div class="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <SlidersHorizontal class="size-5" />
                     </div>
 
                     <div>
-                        <h2 class="font-semibold text-gray-900 dark:text-white">
-                            Trouver un développeur
-                        </h2>
-
-                        <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                        <h2 class="font-semibold">Trouver un développeur</h2>
+                        <p class="mt-0.5 text-xs text-muted-foreground">
                             Affine les résultats selon tes besoins.
                         </p>
                     </div>
                 </div>
 
                 <form class="p-5 sm:p-6" @submit.prevent="searchDevelopers">
-                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-                        <!-- Recherche par nom -->
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div>
-                            <label for="developer-search"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <label for="developer-search" class="mb-2 block text-sm font-medium">
                                 Nom du développeur
                             </label>
 
                             <div class="relative">
                                 <Search
-                                    class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+                                    class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
 
                                 <input id="developer-search" v-model="form.search" type="search" autocomplete="off"
                                     placeholder="Ex. : Alexandre, Sophie..."
-                                    class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-10 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-teal-500 focus:bg-white focus:ring-4 focus:ring-teal-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:focus:border-teal-500 dark:focus:bg-gray-800" />
+                                    class="w-full rounded-xl border border-input bg-background py-3 pl-11 pr-10 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10" />
 
                                 <button v-if="form.search" type="button" aria-label="Effacer le nom"
-                                    class="absolute right-3 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-200 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+                                    class="absolute right-3 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"
                                     @click="form.search = ''">
                                     <X class="size-4" />
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Filtre par technologie -->
                         <div>
-                            <label for="developer-technology"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <label for="developer-technology" class="mb-2 block text-sm font-medium">
                                 Technologie
                             </label>
 
                             <div class="relative">
                                 <Code2
-                                    class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+                                    class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
 
                                 <select id="developer-technology" v-model="form.technology"
-                                    class="w-full appearance-none rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-10 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:bg-white focus:ring-4 focus:ring-teal-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:focus:border-teal-500 dark:focus:bg-gray-800">
-                                    <option value="">
-                                        Toutes les technologies
-                                    </option>
+                                    class="w-full appearance-none rounded-xl border border-input bg-background py-3 pl-11 pr-10 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10">
+                                    <option value="">Toutes les technologies</option>
 
                                     <option v-for="technology in technologies" :key="technology.id"
                                         :value="String(technology.id)">
@@ -277,23 +267,21 @@ function paginationLabel(label: string): string {
                         </div>
                     </div>
 
-                    <!-- Actions -->
-                    <div
-                        class="mt-5 flex flex-col gap-3 border-t border-gray-100 pt-5 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
-                        <p class="text-xs leading-5 text-gray-500 dark:text-gray-400">
+                    <div class="mt-5 flex flex-col gap-3 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
+                        <p class="text-xs leading-5 text-muted-foreground">
                             Recherche parmi les profils et leurs spécialités techniques.
                         </p>
 
                         <div class="flex flex-col gap-2 sm:flex-row">
                             <button type="button"
-                                class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                                class="inline-flex items-center justify-center gap-2 rounded-xl border bg-background px-4 py-3 text-sm font-semibold transition hover:border-primary/30 hover:bg-muted"
                                 @click="resetFilters">
                                 <RotateCcw class="size-4" />
                                 Réinitialiser
                             </button>
 
                             <button type="submit"
-                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500/20">
+                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition hover:-translate-y-0.5 hover:shadow-md">
                                 <Search class="size-4" />
                                 Rechercher
                             </button>
@@ -306,7 +294,7 @@ function paginationLabel(label: string): string {
             <section aria-label="Liste des développeurs">
                 <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
                     <div>
-                        <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
+                        <h2 class="text-xl font-bold tracking-tight text-foreground  sm:text-2xl">
                             {{ form.search || form.technology ? 'Résultats de recherche' : 'Explorer les développeurs'
                             }}
                         </h2>
@@ -325,7 +313,7 @@ function paginationLabel(label: string): string {
                     </div>
 
                     <span v-if="developers.last_page > 1"
-                        class="rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+                        class="rounded-xl border border-gray-200 bg-card px-3 py-2 text-xs font-medium text-gray-500 dark:border-gray-800 dark:text-gray-400">
                         Page {{ developers.current_page }} sur {{ developers.last_page }}
                     </span>
                 </div>
@@ -333,14 +321,15 @@ function paginationLabel(label: string): string {
                 <!-- Cartes des développeurs -->
                 <div v-if="developers.data.length > 0" class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                     <article v-for="developer in developers.data" :key="developer.id"
-                        class="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900 dark:hover:border-teal-900">
+                        class="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-card transition duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
                         <!-- Bandeau décoratif -->
                         <div
-                            class="relative h-24 overflow-hidden bg-linear-to-br from-teal-600 via-cyan-600 to-blue-700">
-                            <div class="absolute -left-5 -top-12 size-36 rounded-full border border-white/10" />
-                            <div class="absolute -bottom-16 right-5 size-40 rounded-full border border-white/10" />
+                            class="relative h-24 overflow-hidden border-b bg-linear-to-br from-primary/15 via-primary/5 to-background">
+                            <div class="absolute -left-5 -top-12 size-36 rounded-full border border-primary/10" />
+                            <div class="absolute -bottom-16 right-5 size-40 rounded-full border border-primary/10" />
+
                             <div
-                                class="absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white backdrop-blur-sm">
+                                class="absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl border bg-background/70 text-primary backdrop-blur-sm">
                                 <Terminal class="size-5" />
                             </div>
                         </div>
@@ -348,85 +337,82 @@ function paginationLabel(label: string): string {
                         <div class="flex flex-1 flex-col px-5 pb-5">
                             <!-- Avatar -->
                             <div
-                                class="-mt-9 mb-3 flex size-17 items-center justify-center rounded-2xl border-4 border-white bg-linear-to-br from-teal-100 to-cyan-100 text-xl font-bold text-teal-800 shadow-sm dark:border-gray-900 dark:from-teal-950 dark:to-cyan-950 dark:text-teal-300">
+                                class="-mt-9 mb-3 flex size-17 items-center justify-center rounded-2xl border-4 border-card bg-primary/10 text-xl font-bold text-primary shadow-sm">
                                 {{ developerInitial(developer.name) }}
                             </div>
 
                             <!-- Identité -->
-                            <h3 class="truncate text-lg font-bold text-gray-900 dark:text-white"
-                                :title="developer.name">
-                                <Link :href="`/developers/${developer.id}`"
-                                    class="transition hover:text-teal-700 dark:hover:text-teal-400">
+                            <h3 class="truncate text-lg font-bold" :title="developer.name">
+                                <Link :href="`/developers/${developer.id}`" class="transition hover:text-primary">
                                     {{ developer.name }}
                                 </Link>
                             </h3>
 
-                            <p class="mt-1 line-clamp-2 min-h-10 text-sm leading-5 text-gray-500 dark:text-gray-400">
+                            <p class="mt-1 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
                                 {{ developer.headline || 'Développeur de la communauté DevLink' }}
                             </p>
 
                             <!-- Localisation -->
                             <div v-if="developer.location"
-                                class="mt-3 flex min-w-0 items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                                <MapPin class="size-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                                class="mt-3 flex min-w-0 items-center gap-2 text-sm text-muted-foreground">
+                                <MapPin class="size-4 shrink-0 text-primary" />
                                 <span class="truncate">{{ developer.location }}</span>
                             </div>
 
-                            <div v-else class="mt-3 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-500">
+                            <div v-else class="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
                                 <UserRound class="size-4 shrink-0" />
                                 <span>Localisation non renseignée</span>
                             </div>
 
                             <!-- Technologies -->
-                            <div class="mt-5 flex-1 border-t border-gray-100 pt-4 dark:border-gray-800">
+                            <div class="mt-5 flex-1 border-t pt-4">
                                 <div class="mb-3 flex items-center justify-between gap-2">
-                                    <p
-                                        class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                         Compétences
                                     </p>
 
-                                    <span class="text-xs text-gray-400 dark:text-gray-500">
+                                    <span class="text-xs text-muted-foreground">
                                         {{ developer.technologies_count }}
                                         {{ developer.technologies_count > 1 ? 'technologies' : 'technologie' }}
                                     </span>
                                 </div>
 
                                 <div v-if="developer.technologies.length > 0" class="flex flex-wrap gap-2">
-                                    <span v-for="technology in developer.technologies" :key="technology.id"
-                                        :title="technology.is_primary ? `${technology.name} — Technologie principale` : technology.name"
+                                    <span v-for="technology in developer.technologies" :key="technology.id" :title="technology.is_primary
+                                        ? `${technology.name} — Technologie principale`
+                                        : technology.name"
                                         class="inline-flex max-w-full items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium"
                                         :class="technology.is_primary
-                                            ? 'border-teal-200 bg-teal-50 text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300'
-                                            : 'border-gray-200 bg-gray-50 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
-                                            ">
+                                            ? 'border-primary/20 bg-primary/10 text-primary'
+                                            : 'bg-muted/50 text-muted-foreground'">
                                         <Star v-if="technology.is_primary" class="size-3 shrink-0 fill-current" />
 
                                         <Code2 v-else class="size-3 shrink-0" />
 
-                                        <span class="truncate">
-                                            {{ technology.name }}
-                                        </span>
+                                        <span class="truncate">{{ technology.name }}</span>
                                     </span>
 
                                     <span v-if="developer.technologies_count > developer.technologies.length"
-                                        class="inline-flex items-center rounded-lg border border-gray-200 bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                                        class="inline-flex items-center rounded-lg border bg-muted/50 px-2.5 py-1.5 text-xs font-medium text-muted-foreground">
                                         +{{ developer.technologies_count - developer.technologies.length }}
                                     </span>
                                 </div>
 
                                 <p v-else
-                                    class="rounded-xl border border-dashed border-gray-200 px-3 py-4 text-center text-xs text-gray-400 dark:border-gray-700 dark:text-gray-500">
+                                    class="rounded-xl border border-dashed px-3 py-4 text-center text-xs text-muted-foreground">
                                     Aucune compétence renseignée
                                 </p>
                             </div>
 
                             <!-- Action -->
-                            <div class="mt-5 border-t border-gray-100 pt-4 dark:border-gray-800">
+                            <div class="mt-5 border-t pt-4">
                                 <Link :href="`/developers/${developer.id}`"
-                                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500/20 dark:bg-gray-800 dark:hover:bg-teal-700">
+                                    class="group/button inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/20">
                                     <UserRound class="size-4" />
                                     Voir le profil
-                                    <ArrowRight class="ml-auto size-4 transition-transform group-hover:translate-x-1" />
+
+                                    <ArrowRight
+                                        class="ml-auto size-4 transition-transform group-hover/button:translate-x-1" />
                                 </Link>
                             </div>
                         </div>
@@ -441,15 +427,13 @@ function paginationLabel(label: string): string {
                             :aria-current="link.active ? 'page' : undefined"
                             class="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border px-3.5 py-2 text-sm font-medium transition"
                             :class="link.active
-                                ? 'border-teal-600 bg-teal-600 text-white shadow-sm'
-                                : 'border-gray-200 bg-white text-gray-600 hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-teal-900 dark:hover:bg-teal-950 dark:hover:text-teal-300'
-                                ">
+                                ? 'border-primary bg-primary text-primary-foreground shadow-sm'
+                                : 'bg-background hover:border-primary/40 hover:bg-muted'">
                             <ChevronLeft v-if="paginationLabel(link.label) === 'Précédent'" class="size-4" />
 
                             <ChevronRight v-if="paginationLabel(link.label) === 'Suivant'" class="size-4" />
 
-                            <span
-                                v-if="paginationLabel(link.label) !== 'Précédent' && paginationLabel(link.label) !== 'Suivant'"
+                            <span v-if="!['Précédent', 'Suivant'].includes(paginationLabel(link.label))"
                                 v-html="link.label" />
 
                             <span v-else>
@@ -476,13 +460,13 @@ function paginationLabel(label: string): string {
 
                 <!-- Aucun résultat -->
                 <div v-else
-                    class="rounded-2xl border border-dashed border-gray-300 bg-white px-5 py-14 text-center dark:border-gray-700 dark:bg-gray-900 sm:px-10 sm:py-20">
+                    class="rounded-2xl border border-dashed border-gray-300 bg-card px-5 py-14 text-center dark:border-gray-700 sm:px-10 sm:py-20">
                     <div
                         class="mx-auto flex size-16 items-center justify-center rounded-2xl bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
                         <Search class="size-8" />
                     </div>
 
-                    <h2 class="mt-5 text-xl font-bold text-gray-900 dark:text-white">
+                    <h2 class="mt-5 text-xl font-bold text-foreground">
                         Aucun développeur trouvé
                     </h2>
 
@@ -492,7 +476,7 @@ function paginationLabel(label: string): string {
                     </p>
 
                     <button type="button"
-                        class="mt-6 inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                        class="mt-6 inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-card px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                         @click="resetFilters">
                         <RotateCcw class="size-4" />
                         Réinitialiser les filtres
@@ -505,12 +489,12 @@ function paginationLabel(label: string): string {
                 class="mt-8 flex flex-col gap-4 rounded-2xl border border-teal-100 bg-teal-50/70 p-5 dark:border-teal-900/60 dark:bg-teal-950/30 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                 <div class="flex items-start gap-3">
                     <div
-                        class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm dark:bg-gray-900 dark:text-teal-300">
+                        class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-card text-teal-700 shadow-sm dark:text-teal-300">
                         <MessageCircle class="size-5" />
                     </div>
 
                     <div>
-                        <h3 class="text-sm font-bold text-gray-900 dark:text-white">
+                        <h3 class="text-sm font-bold text-foreground ">
                             La prochaine collaboration commence ici.
                         </h3>
 
@@ -522,7 +506,7 @@ function paginationLabel(label: string): string {
                 </div>
 
                 <Link href="/communities"
-                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-teal-200 bg-white px-4 py-2.5 text-sm font-semibold text-teal-700 transition hover:bg-teal-50 dark:border-teal-900 dark:bg-gray-900 dark:text-teal-300 dark:hover:bg-teal-950">
+                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-teal-200 bg-card px-4 py-2.5 text-sm font-semibold text-teal-700 transition hover:bg-teal-50 dark:border-teal-900 dark:text-teal-300 dark:hover:bg-teal-950">
                     Explorer les communautés
                     <ArrowRight class="size-4" />
                 </Link>

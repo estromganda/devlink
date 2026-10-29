@@ -16,8 +16,8 @@ class CommunitySeeder extends Seeder
     {
         $communityData = [
             [
-                'name' => 'Laravel France',
-                'slug' => 'laravel-france',
+                'name' => 'Laravel Developers',
+                'slug' => 'laravel-developers',
                 'description' => 'Une communauté francophone dédiée à Laravel, Eloquent, Artisan et à la construction d’applications web modernes.',
                 'creator' => 'Alexandre Martin',
                 'is_private' => false,

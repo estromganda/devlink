@@ -28,7 +28,7 @@ const form = useForm({
 });
 
 function submit() {
-    form.patch('/developer-profile');
+    form.patch('/settings/developer-profile');
 }
 </script>
 

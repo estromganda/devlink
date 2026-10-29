@@ -5,6 +5,7 @@ import AppShell from '@/components/AppShell.vue';
 import { Toaster } from '@/components/ui/sonner';
 import type { BreadcrumbItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
+import { onMounted, onUpdated, ref } from 'vue';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -19,6 +20,13 @@ const page = usePage();
 const flash = page.props.flash as {
     success?: string | null;
 };
+let pageError = page.props.error;
+let showFlash = ref(true);
+
+setTimeout(() => {
+    pageError = null;
+    showFlash.value = false;
+}, 2000)
 
 </script>
 
@@ -26,10 +34,16 @@ const flash = page.props.flash as {
     <AppShell variant="header">
         <AppHeader :breadcrumbs="breadcrumbs" />
         <AppContent variant="header">
-            <div v-if="flash?.success" role="status" class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div v-if="flash?.success && showFlash" role="status" class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div
                     class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
                     {{ flash.success }}
+                </div>
+            </div>
+            <div v-if="showFlash && pageError" role="status" class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div
+                    class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-red-800">
+                    {{ pageError }}
                 </div>
             </div>
             <slot />
@@ -105,7 +119,7 @@ const flash = page.props.flash as {
                             </li>
 
                             <li>
-                                <Link href="/collaborations" class="transition hover:text-primary">
+                                <Link href="/my-collaboration-requests" class="transition hover:text-primary">
                                     Collaborations
                                 </Link>
                             </li>
@@ -124,7 +138,7 @@ const flash = page.props.flash as {
 
                         <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
                             <li v-if="auth.user">
-                                <Link href="/developer-profile" class="transition hover:text-primary">
+                                <Link href="/settings/developer-profile" class="transition hover:text-primary">
                                     Mon profil développeur
                                 </Link>
                             </li>

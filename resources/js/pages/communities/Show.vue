@@ -8,7 +8,7 @@ interface CommunityMember {
 
 interface Community {
     id: number;
-    creator_id: number,
+    creator_id: number;
     name: string;
     slug: string;
     description: string | null;
@@ -60,24 +60,39 @@ function initial(name: string): string {
 
     <Head :title="community.name" />
 
-    <div class="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-white">
+    <div class="min-h-screen bg-background text-foreground">
         <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-            <Link href="/communities" class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">
-                ← Retour aux communautés
+            <!-- Retour aux communautés -->
+            <Link href="/communities"
+                class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                <span aria-hidden="true">←</span>
+                Retour aux communautés
             </Link>
 
-            <!-- Bannière -->
-            <section
-                class="mt-6 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                <div class="relative h-48 bg-linear-to-br from-indigo-500 via-violet-500 to-purple-600 sm:h-64">
+            <!-- Informations de la communauté -->
+            <section class="mt-6 overflow-hidden rounded-2xl border bg-card shadow-sm">
+                <!-- Bannière -->
+                <div
+                    class="relative h-48 overflow-hidden bg-linear-to-br from-primary/20 via-primary/10 to-muted sm:h-64">
                     <img v-if="community.cover_path" :src="`/storage/${community.cover_path}`"
                         :alt="`Bannière de ${community.name}`" class="h-full w-full object-cover" />
+
+                    <div v-else class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                        <span class="text-7xl font-bold text-primary/20 sm:text-8xl">
+                            {{ initial(community.name) }}
+                        </span>
+                    </div>
+
+                    <div
+                        class="pointer-events-none absolute inset-0 bg-linear-to-t from-background/20 to-transparent" />
                 </div>
 
                 <div class="p-6 sm:p-8">
+                    <!-- Identité et statistiques -->
                     <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
+                        <!-- Avatar -->
                         <div
-                            class="-mt-16 flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-indigo-100 text-3xl font-bold text-indigo-700 dark:border-gray-900 dark:bg-indigo-950 dark:text-indigo-300">
+                            class="-mt-16 flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-card bg-primary/10 text-3xl font-bold text-primary shadow-sm">
                             <img v-if="community.avatar_path" :src="`/storage/${community.avatar_path}`"
                                 :alt="`Avatar de ${community.name}`" class="h-full w-full object-cover" />
 
@@ -86,59 +101,70 @@ function initial(name: string): string {
                             </span>
                         </div>
 
+                        <!-- Nom et créateur -->
                         <div class="min-w-0 flex-1">
-                            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
+                            <h1 class="wrap-break-word text-3xl font-bold tracking-tight sm:text-4xl">
                                 {{ community.name }}
                             </h1>
 
-                            <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
-                                Créée par
-                                <span class="font-medium text-gray-900 dark:text-white">
+                            <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+                                <span>Créée par</span>
+
+                                <span class="font-medium text-foreground">
                                     {{ community.creator.name }}
                                 </span>
-                                <span class="mx-2">·</span>
-                                {{ formatDate(community.created_at) }}
+
+                                <span aria-hidden="true">·</span>
+
+                                <span>
+                                    {{ formatDate(community.created_at) }}
+                                </span>
                             </p>
                         </div>
 
-                        <div class="rounded-xl bg-indigo-50 px-4 py-3 text-center dark:bg-indigo-950">
-                            <p class="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
+                        <!-- Nombre de membres -->
+                        <div
+                            class="flex shrink-0 items-center gap-3 rounded-xl border bg-muted/50 px-4 py-3 sm:flex-col sm:gap-1 sm:text-center">
+                            <p class="text-2xl font-bold text-primary">
                                 {{ community.members_count }}
                             </p>
-                            <p class="text-sm text-indigo-700 dark:text-indigo-300">
+
+                            <p class="text-sm text-muted-foreground">
                                 membre{{ community.members_count > 1 ? 's' : '' }}
                             </p>
                         </div>
                     </div>
 
-                    <div class="mt-8 border-t border-gray-100 pt-6 dark:border-gray-800">
+                    <!-- Description -->
+                    <div class="mt-8 border-t pt-6">
                         <h2 class="text-lg font-semibold">
                             À propos de cette communauté
                         </h2>
 
-                        <p class="mt-3 whitespace-pre-line leading-7 text-gray-600 dark:text-gray-300">
+                        <p class="mt-3 whitespace-pre-line leading-7 text-muted-foreground">
                             {{
                                 community.description ||
                                 'Cette communauté n’a pas encore de description.'
                             }}
                         </p>
                     </div>
-                    <!-- Nombre des membres -->
-                    <span class="text-sm text-muted-foreground">
-                        {{ community.members_count }}
-                        {{ community.members_count > 1 ? 'membres' : 'membre' }}
-                    </span>
-                    <!-- Joindre ou quitter -->
+
+                    <!-- Actions -->
                     <div class="mt-6 flex flex-wrap items-center gap-3">
                         <button v-if="!isMember" type="button" :disabled="joinForm.processing"
-                            class="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                            class="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                             @click="joinCommunity">
-                            {{ joinForm.processing ? 'Inscription en cours...' : 'Rejoindre la communauté' }}
+                            {{
+                                joinForm.processing
+                                    ? 'Inscription en cours...'
+                                    : 'Rejoindre la communauté'
+                            }}
                         </button>
 
-                        <button v-else type="button"
-                            :disabled="leaveForm.processing || community.creator_id === $page.props.auth.user?.id"
-                            class="inline-flex items-center justify-center rounded-lg border px-5 py-2.5 text-sm font-semibold transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
+                        <button v-else type="button" :disabled="leaveForm.processing ||
+                            community.creator_id === $page.props.auth.user?.id
+                            "
+                            class="inline-flex items-center justify-center rounded-lg border bg-background px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
                             @click="leaveCommunity">
                             {{
                                 community.creator_id === $page.props.auth.user?.id
@@ -148,46 +174,87 @@ function initial(name: string): string {
                                         : 'Quitter la communauté'
                             }}
                         </button>
+                        <Link v-if="community.creator_id === $page.props.auth.user?.id"
+                            :href="`/communities/${community.slug}/edit`"
+                            class="inline-flex items-center justify-center gap-2 rounded-lg border bg-background px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" class="h-4 w-4" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m16 4 4 4M4 20l4-.8L19 8a2.12 2.12 0 0 0-3-3L5 16l-1 4Z" />
+                            </svg>
+                            Modifier la communauté
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            <!-- Membres -->
-            <section
-                class="mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8">
+            <!-- Liste des membres -->
+            <section class="mt-8 rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <h2 class="text-xl font-bold">
                             Membres
                         </h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+
+                        <p class="mt-1 text-sm text-muted-foreground">
                             Les développeurs de cette communauté.
                         </p>
                     </div>
 
-                    <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800">
+                    <span
+                        class="inline-flex min-w-10 items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
                         {{ community.members_count }}
                     </span>
                 </div>
 
+                <!-- Membres présents -->
                 <div v-if="community.members.length" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    <div v-for="member in community.members" :key="member.id"
-                        class="flex items-center gap-3 rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+                    <Link v-for="member in community.members" :key="member.id" :href="`/developers/${member.id}`"
+                        class="group flex min-w-0 items-center gap-3 rounded-xl border p-4 transition-colors hover:border-primary/30 hover:bg-muted/50">
                         <div
-                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-semibold text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                             {{ initial(member.name) }}
                         </div>
 
-                        <p class="truncate font-medium">
-                            {{ member.name }}
-                        </p>
-                    </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="truncate font-medium transition-colors group-hover:text-primary">
+                                {{ member.name }}
+                            </p>
+
+                            <p class="mt-1 text-xs text-muted-foreground">
+                                Voir le profil
+                            </p>
+                        </div>
+
+                        <span class="text-muted-foreground transition-colors group-hover:text-primary"
+                            aria-hidden="true">
+                            →
+                        </span>
+                    </Link>
                 </div>
 
-                <p v-else
-                    class="mt-6 rounded-xl bg-gray-50 p-6 text-center text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-                    Cette communauté n'a pas encore de membres.
-                </p>
+                <!-- Aucun membre -->
+                <div v-else class="mt-6 rounded-xl border border-dashed p-8 text-center">
+                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                        aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.7" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="10" cy="7" r="4" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+
+                    <p class="mt-4 font-medium">
+                        Aucun membre pour le moment
+                    </p>
+
+                    <p class="mt-1 text-sm text-muted-foreground">
+                        Rejoignez cette communauté pour commencer à échanger avec d'autres développeurs.
+                    </p>
+                </div>
             </section>
         </div>
     </div>

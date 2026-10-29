@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AnswerVoteController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\CollaborationOfferController;
 use App\Http\Controllers\CommentController;
@@ -22,6 +23,11 @@ use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
+
+Route::get('/', [
+    AppController::class,
+    'index'
+])->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -105,12 +111,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/developer-profile', [
+    Route::get('/settings/developer-profile', [
         DeveloperProfileController::class,
         'edit',
     ])->name('developer-profile.edit');
 
-    Route::patch('/developer-profile', [
+    Route::patch('/settings/developer-profile', [
         DeveloperProfileController::class,
         'update',
     ])->name('developer-profile.update');
@@ -133,6 +139,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/communities/{slug}/leave', [CommunityController::class, 'leave'])
         ->where('slug', '[a-z0-9-]+')
         ->name('communities.leave');
+
+    // Modification d'une communauté
+    Route::get('/communities/{slug}/edit', [
+        CommunityController::class,
+        'edit',
+    ])->where('slug', '[a-z0-9-]+')->name('communities.edit');
+
+    Route::put('/communities/{slug}', [
+        CommunityController::class,
+        'update',
+    ])->where('slug', '[a-z0-9-]+')->name('communities.update');
 
     // Posts
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])

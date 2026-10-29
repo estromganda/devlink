@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import {
     ArrowDownRight,
     ArrowRight,
@@ -17,6 +17,8 @@ import {
     Users,
     Wrench,
     Zap,
+    ChevronLeft,
+    ChevronRight,
 } from '@lucide/vue';
 
 const page = usePage();
@@ -27,6 +29,46 @@ const auth = computed(() => page.props.auth as {
         name: string;
     } | null;
 });
+
+interface Community {
+    id: number;
+    name: string;
+    slug: string;
+    description: string | null;
+    avatar_path: string | null;
+}
+
+const communities = computed(
+    () => (page.props.communities ?? []) as Community[],
+);
+
+// Deux communautés par diapositive.
+const communitySlides = computed(() => {
+    const slides: Community[][] = [];
+
+    for (let i = 0; i < communities.value.length; i += 2) {
+        slides.push(communities.value.slice(i, i + 2));
+    }
+
+    return slides;
+});
+
+const currentCommunitySlide = ref(0);
+
+const nextCommunitySlide = () => {
+    if (communitySlides.value.length === 0) return;
+
+    currentCommunitySlide.value =
+        (currentCommunitySlide.value + 1) % communitySlides.value.length;
+};
+
+const previousCommunitySlide = () => {
+    if (communitySlides.value.length === 0) return;
+
+    currentCommunitySlide.value =
+        (currentCommunitySlide.value - 1 + communitySlides.value.length)
+        % communitySlides.value.length;
+};
 
 const features = [
     {
@@ -173,7 +215,7 @@ const principles = [
                             <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
                         </Link>
 
-                        <Link href="/developers"
+                        <Link href="/communities"
                             class="inline-flex items-center justify-center gap-2 rounded-xl border bg-background/80 px-6 py-3.5 text-sm font-bold transition hover:border-primary/30 hover:bg-muted">
                             Explorer la communauté
                             <ArrowUpRight class="size-4" />
@@ -251,82 +293,100 @@ const principles = [
                                 chaque échange est une occasion de progresser.
                             </p>
 
-                            <!-- Community cards -->
-                            <div class="mt-6 space-y-3">
-                                <div
-                                    class="group rounded-2xl border p-4 transition duration-200 hover:border-primary/30 hover:bg-muted/30">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-sm font-black text-red-500">
-                                            L
-                                        </div>
-
-                                        <div class="min-w-0 flex-1">
-                                            <p class="truncate text-sm font-bold">
-                                                Laravel Developers
-                                            </p>
-                                            <p class="mt-0.5 text-xs text-muted-foreground">
-                                                Développement web · Backend
-                                            </p>
-                                        </div>
-
-                                        <ArrowUpRight
-                                            class="size-4 shrink-0 text-muted-foreground transition group-hover:text-primary" />
-                                    </div>
-
-                                    <p class="mt-3 text-sm leading-6 text-muted-foreground">
-                                        Partager des solutions, comprendre les
-                                        bonnes pratiques et progresser ensemble.
+                            <!-- Community carousel -->
+                            <div class="mt-6">
+                                <!-- Navigation -->
+                                <div class="mb-4 flex items-center justify-between gap-3">
+                                    <p class="text-xs font-semibold text-muted-foreground">
+                                        Communautés à découvrir
                                     </p>
 
-                                    <div class="mt-3 flex flex-wrap gap-2">
-                                        <span class="rounded-md bg-muted px-2 py-1 text-[11px] font-medium">
-                                            Laravel
+                                    <div v-if="communitySlides.length > 1" class="flex items-center gap-2">
+                                        <button type="button" aria-label="Diapositive précédente"
+                                            class="flex size-9 items-center justify-center rounded-xl border transition hover:border-primary/40 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+                                            @click="previousCommunitySlide">
+                                            <ChevronLeft class="size-4" />
+                                        </button>
+
+                                        <span class="min-w-12 text-center text-xs text-muted-foreground">
+                                            {{ currentCommunitySlide + 1 }} / {{ communitySlides.length }}
                                         </span>
-                                        <span class="rounded-md bg-muted px-2 py-1 text-[11px] font-medium">
-                                            PHP
-                                        </span>
-                                        <span class="rounded-md bg-muted px-2 py-1 text-[11px] font-medium">
-                                            API
-                                        </span>
+
+                                        <button type="button" aria-label="Diapositive suivante"
+                                            class="flex size-9 items-center justify-center rounded-xl border transition hover:border-primary/40 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+                                            @click="nextCommunitySlide">
+                                            <ChevronRight class="size-4" />
+                                        </button>
                                     </div>
                                 </div>
 
-                                <div
-                                    class="group rounded-2xl border p-4 transition duration-200 hover:border-primary/30 hover:bg-muted/30">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-sm font-black text-emerald-600 dark:text-emerald-400">
-                                            V
+                                <!-- Deux cartes par diapositive -->
+                                <div v-if="communities.length > 0" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                    <Link v-for="community in communitySlides[currentCommunitySlide]"
+                                        :key="community.id" href="/communities"
+                                        class="group flex min-w-0 flex-col rounded-2xl border p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-muted/30 hover:shadow-lg hover:shadow-primary/5">
+                                        <div class="flex items-center gap-3">
+                                            <!-- Avatar ou initiale -->
+                                            <div
+                                                class="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary/10 text-sm font-black text-primary">
+                                                <img v-if="community.avatar_path"
+                                                    :src="`/storage/${community.avatar_path}`"
+                                                    :alt="`Logo de ${community.name}`" class="size-full object-cover" />
+
+                                                <span v-else>
+                                                    {{ community.name.charAt(0).toUpperCase() }}
+                                                </span>
+                                            </div>
+
+                                            <div class="min-w-0 flex-1">
+                                                <p class="truncate text-sm font-bold">
+                                                    {{ community.name }}
+                                                </p>
+
+                                                <p class="mt-1 text-xs text-muted-foreground">
+                                                    Communauté de développeurs
+                                                </p>
+                                            </div>
+
+                                            <ArrowUpRight
+                                                class="size-4 shrink-0 text-muted-foreground transition group-hover:text-primary" />
                                         </div>
 
-                                        <div class="min-w-0 flex-1">
-                                            <p class="truncate text-sm font-bold">
-                                                Vue.js Community
-                                            </p>
-                                            <p class="mt-0.5 text-xs text-muted-foreground">
-                                                Front-end · Interfaces
-                                            </p>
+                                        <p class="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                                            {{ community.description || 'Découvre cette communauté et échange avec ses '
+                                                +
+                                                'membres.' }}
+                                        </p>
+
+                                        <div class="mt-auto pt-4">
+                                            <span class="inline-flex items-center gap-1 text-xs font-bold text-primary">
+                                                Découvrir
+                                                <ArrowRight
+                                                    class="size-3.5 transition-transform group-hover:translate-x-1" />
+                                            </span>
                                         </div>
+                                    </Link>
+                                </div>
 
-                                        <ArrowUpRight
-                                            class="size-4 shrink-0 text-muted-foreground transition group-hover:text-primary" />
-                                    </div>
+                                <!-- Aucune communauté -->
+                                <div v-else class="rounded-2xl border border-dashed p-6 text-center">
+                                    <Users class="mx-auto size-8 text-muted-foreground" />
 
-                                    <p class="mt-3 text-sm leading-6 text-muted-foreground">
-                                        Découvrir de nouvelles approches et
-                                        échanger autour de son code.
+                                    <p class="mt-3 text-sm font-bold">
+                                        Aucune communauté disponible
                                     </p>
 
-                                    <div class="mt-3 flex flex-wrap gap-2">
-                                        <span class="rounded-md bg-muted px-2 py-1 text-[11px] font-medium">
-                                            Vue.js
-                                        </span>
-                                        <span class="rounded-md bg-muted px-2 py-1 text-[11px] font-medium">
-                                            TypeScript
-                                        </span>
-                                    </div>
+                                    <p class="mt-1 text-xs leading-5 text-muted-foreground">
+                                        Les communautés publiques apparaîtront ici dès qu'elles seront disponibles.
+                                    </p>
                                 </div>
+
+                                <!-- Lien vers la liste complète -->
+                                <Link href="/communities"
+                                    class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border bg-background px-4 py-3 text-sm font-bold transition hover:border-primary/40 hover:bg-muted">
+                                    Explorer toutes les communautés
+                                    <ArrowRight class="size-4" />
+                                </Link>
                             </div>
 
                             <!-- Bottom tagline -->

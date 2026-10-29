@@ -6,6 +6,7 @@ use App\Models\Community;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
@@ -61,15 +62,17 @@ class CommunityController extends Controller
             ->withCount('members')
             ->where('slug', $slug)
             ->where('is_active', true)
-            ->where('is_private', false)
             ->firstOrFail();
-
 
         $isMember = $request->user()
             ? $community->users()
             ->where('users.id', $request->user()->id)
             ->exists()
             : false;
+
+        if ($community->is_private && !$isMember) {
+            abort(403, "Not found");
+        }
 
         return Inertia::render('communities/Show', [
             'community' => [
@@ -114,6 +117,20 @@ class CommunityController extends Controller
             'name' => ['required', 'string', 'min:3', 'max:120'],
             'description' => ['nullable', 'string', 'max:5000'],
             'is_private' => ['required', 'boolean'],
+
+            'avatar' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
+
+            'cover' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
+            ],
         ]);
 
         $baseSlug = Str::slug($validated['name']);
@@ -134,27 +151,201 @@ class CommunityController extends Controller
             $suffix++;
         }
 
-        $community = DB::transaction(function () use ($validated, $slug, $request) {
-            $community = $request->user()
-                ->createdCommunities()
-                ->create([
-                    'name' => $validated['name'],
-                    'slug' => $slug,
-                    'description' => $validated['description'] ?? null,
-                    'is_private' => $validated['is_private'],
-                    'is_active' => true,
+        // Enregistrer les images sur le disque public.
+        $avatarPath = null;
+        $coverPath = null;
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')
+                ->store('communities/avatars', 'public');
+        }
+
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')
+                ->store('communities/covers', 'public');
+        }
+
+        try {
+            $community = DB::transaction(function () use (
+                $validated,
+                $slug,
+                $request,
+                $avatarPath,
+                $coverPath
+            ) {
+                $community = $request->user()
+                    ->createdCommunities()
+                    ->create([
+                        'name' => $validated['name'],
+                        'slug' => $slug,
+                        'description' => $validated['description'] ?? null,
+                        'avatar_path' => $avatarPath,
+                        'cover_path' => $coverPath,
+                        'is_private' => $validated['is_private'],
+                        'is_active' => true,
+                    ]);
+
+                // Ajouter automatiquement le créateur comme administrateur.
+                $community->users()->attach($request->user()->id, [
+                    'role' => 'admin',
+                    'joined_at' => now(),
                 ]);
 
-            $community->users()->attach($request->user()->id, [
-                'role' => 'admin',
-                'joined_at' => now(),
-            ]);
-            return $community;
-        });
+                return $community;
+            });
+        } catch (\Throwable $exception) {
+            // Nettoyer les fichiers si la création échoue.
+            if ($avatarPath) {
+                Storage::disk('public')->delete($avatarPath);
+            }
+
+            if ($coverPath) {
+                Storage::disk('public')->delete($coverPath);
+            }
+
+            throw $exception;
+        }
 
         return redirect()
             ->route('communities.show', ['slug' => $community->slug])
             ->with('success', 'Votre communauté a été créée avec succès.');
+    }
+
+    /**
+     * Afficher le formulaire de modification d'une communauté.
+     */
+    public function edit(Request $request, string $slug): Response
+    {
+        $community = Community::where('slug', $slug)->firstOrFail();
+
+        abort_unless(
+            (int) $community->creator_id === (int) $request->user()->id,
+            403,
+            'Tu n’es pas autorisé à modifier cette communauté.'
+        );
+
+        return Inertia::render('communities/Edit', [
+            'community' => [
+                'id' => $community->id,
+                'name' => $community->name,
+                'slug' => $community->slug,
+                'description' => $community->description,
+                'avatar_path' => $community->avatar_path,
+                'cover_path' => $community->cover_path,
+                'is_private' => $community->is_private,
+            ],
+        ]);
+    }
+
+    /**
+     * Enregistrer les modifications d'une communauté.
+     */
+    public function update(Request $request, string $slug): RedirectResponse
+    {
+        $community = Community::where('slug', $slug)->firstOrFail();
+
+        abort_unless(
+            (int) $community->creator_id === (int) $request->user()->id,
+            403,
+            'Tu n’es pas autorisé à modifier cette communauté.'
+        );
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'min:3', 'max:120'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'is_private' => ['required', 'boolean'],
+
+            'avatar' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
+
+            'cover' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
+            ],
+        ]);
+
+        $baseSlug = Str::slug($validated['name']);
+
+        if ($baseSlug === '') {
+            return back()
+                ->withErrors([
+                    'name' => 'Le nom doit contenir des caractères permettant de créer un identifiant.',
+                ])
+                ->withInput();
+        }
+
+        $slug = $baseSlug;
+        $suffix = 2;
+
+        while (
+            Community::where('slug', $slug)
+            ->where('id', '!=', $community->id)
+            ->exists()
+        ) {
+            $slug = $baseSlug . '-' . $suffix;
+            $suffix++;
+        }
+
+        $oldAvatar = $community->avatar_path;
+        $oldCover = $community->cover_path;
+
+        $avatarPath = $oldAvatar;
+        $coverPath = $oldCover;
+
+        DB::transaction(function () use (
+            $request,
+            $community,
+            $validated,
+            $slug,
+            &$avatarPath,
+            &$coverPath
+        ) {
+            if ($request->hasFile('avatar')) {
+                $avatarPath = $request->file('avatar')
+                    ->store('communities/avatars', 'public');
+            }
+
+            if ($request->hasFile('cover')) {
+                $coverPath = $request->file('cover')
+                    ->store('communities/covers', 'public');
+            }
+
+            $community->update([
+                'name' => $validated['name'],
+                'slug' => $slug,
+                'description' => $validated['description'] ?? null,
+                'is_private' => $validated['is_private'],
+                'avatar_path' => $avatarPath,
+                'cover_path' => $coverPath,
+            ]);
+        });
+
+        // Supprimer les anciennes images uniquement après l'enregistrement.
+        if (
+            $request->hasFile('avatar')
+            && $oldAvatar
+            && $oldAvatar !== $avatarPath
+        ) {
+            Storage::disk('public')->delete($oldAvatar);
+        }
+
+        if (
+            $request->hasFile('cover')
+            && $oldCover
+            && $oldCover !== $coverPath
+        ) {
+            Storage::disk('public')->delete($oldCover);
+        }
+
+        return redirect()
+            ->route('communities.show', ['slug' => $community->slug])
+            ->with('success', 'La communauté a été modifiée avec succès.');
     }
 
     public function join(Request $request, string $slug): RedirectResponse
