@@ -55,54 +55,56 @@ const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Accueil',
-        href: '/',
-        icon: Home,
-    },
-    {
-        title: 'Développeurs',
-        href: '/developers',
-        icon: Users,
-    },
-    {
-        title: 'Communautés',
-        href: '/communities',
-        icon: Users,
-    },
-    {
-        title: 'Actualités',
-        href: '/posts',
-        icon: Newspaper,
-    },
-    {
-        title: 'Projets',
-        href: '/projects',
-        icon: Folder,
-    },
-
-    {
-        title: 'Q&A',
-        href: '/questions',
-        icon: CircleHelp,
-    },
-
-];
-
-if (auth.value?.user) {
-    mainNavItems.push(
+const mainNavItems = computed(() => {
+    const items = [
         {
-            title: 'Messages',
-            href: '/messages',
-            icon: MessagesCircle,
-        }, {
-        title: '',
-        href: '/notifications',
-        icon: Bell,
-    },
-    );
-}
+            title: 'Accueil',
+            href: '/',
+            icon: Home,
+        },
+        {
+            title: 'Développeurs',
+            href: '/developers',
+            icon: Users,
+        },
+        {
+            title: 'Communautés',
+            href: '/communities',
+            icon: Users,
+        },
+        {
+            title: 'Actualités',
+            href: '/posts',
+            icon: Newspaper,
+        },
+        {
+            title: 'Projets',
+            href: '/projects',
+            icon: Folder,
+        },
+
+        {
+            title: 'Q&A',
+            href: '/questions',
+            icon: CircleHelp,
+        },
+
+    ];
+    if (auth.value?.user) {
+        items.push(
+            {
+                title: 'Messages',
+                href: '/messages',
+                icon: MessagesCircle,
+            }, {
+            title: '',
+            href: '/notifications',
+            icon: Bell,
+        },
+        );
+    }
+    return items;
+});
 
 const { unreadCount: unreadNotificationsCount } =
     useRealtimeNotifications();

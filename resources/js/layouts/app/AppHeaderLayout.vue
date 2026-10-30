@@ -5,7 +5,7 @@ import AppShell from '@/components/AppShell.vue';
 import { Toaster } from '@/components/ui/sonner';
 import type { Auth, BreadcrumbItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { onMounted, onUpdated, ref } from 'vue';
+import { computed, onMounted, onUpdated, ref } from 'vue';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -20,13 +20,26 @@ const page = usePage();
 const flash = page.props.flash as {
     success?: string | null;
 };
-let pageError = page.props.error;
+let pageError = computed(() => {
+    if (page.props.error) {
+        showFlash.value = true;
+    }
+    return page.props.error
+});
 let showFlash = ref(true);
 
 setTimeout(() => {
-    pageError = null;
     showFlash.value = false;
 }, 2000)
+
+onUpdated(() => {
+    if (page.props.error) {
+        showFlash.value = true;
+    }
+    setTimeout(() => {
+        showFlash.value = false;
+    }, 2000)
+});
 
 </script>
 
