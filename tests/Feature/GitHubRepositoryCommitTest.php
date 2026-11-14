@@ -15,7 +15,7 @@ beforeEach(function () {
         'user_id' => $this->user->id,
         'provider' => 'github',
         'provider_user_id' => 'github-user-123',
-        'username' => 'devlink-user',
+        'username' => 'devcolab-user',
         'email' => $this->user->email,
         'access_token' => 'fake-github-token',
         'scopes' => ['read:user', 'user:email', 'repo'],
@@ -39,10 +39,10 @@ beforeEach(function () {
         'connected_by' => $this->user->id,
         'provider' => 'github',
         'external_id' => '98765',
-        'full_name' => 'devlink-user/test-repository',
+        'full_name' => 'devcolab-user/test-repository',
         'name' => 'test-repository',
         'description' => 'Repository for testing',
-        'repository_url' => 'https://github.com/devlink-user/test-repository',
+        'repository_url' => 'https://github.com/devcolab-user/test-repository',
         'default_branch' => 'main',
         'is_private' => false,
         'is_active' => true,
@@ -57,16 +57,16 @@ function githubCommitPayload(array $overrides = []): array
     return array_replace_recursive([
         [
             'sha' => 'abcdef1234567890abcdef1234567890abcdef12',
-            'html_url' => 'https://github.com/devlink-user/test-repository/commit/abcdef1234567890abcdef1234567890abcdef12',
+            'html_url' => 'https://github.com/devcolab-user/test-repository/commit/abcdef1234567890abcdef1234567890abcdef12',
             'commit' => [
                 'message' => 'Add user authentication',
                 'author' => [
-                    'name' => 'DevLink Developer',
+                    'name' => 'DevColab Developer',
                     'date' => '2026-10-20T10:00:00Z',
                 ],
             ],
             'author' => [
-                'login' => 'devlink-user',
+                'login' => 'devcolab-user',
                 'avatar_url' => 'https://avatars.githubusercontent.com/u/12345?v=4',
             ],
         ],
@@ -98,11 +98,11 @@ it('displays commits from GitHub for the project owner', function () {
             fn(Assert $page) => $page
                 ->component('github/Commits')
                 ->where('project.slug', 'commit-test-project')
-                ->where('repository.full_name', 'devlink-user/test-repository')
+                ->where('repository.full_name', 'devcolab-user/test-repository')
                 ->has('commits', 1)
                 ->where('commits.0.message', 'Add user authentication')
-                ->where('commits.0.author_name', 'DevLink Developer')
-                ->where('commits.0.author_login', 'devlink-user')
+                ->where('commits.0.author_name', 'DevColab Developer')
+                ->where('commits.0.author_login', 'devcolab-user')
                 ->where('commits.0.short_sha', 'abcdef1')
                 ->where('pagination.current_page', 1)
                 ->where('pagination.has_previous_page', false)

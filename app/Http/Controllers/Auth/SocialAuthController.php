@@ -66,7 +66,7 @@ class SocialAuthController extends Controller
 
             /*
              * Une identité déjà enregistrée permet de retrouver
-             * le compte DevLink même si l'e-mail a changé.
+             * le compte DevColab même si l'e-mail a changé.
              */
             $socialAccount = SocialAccount::query()
                 ->where('provider', $provider)
@@ -90,7 +90,7 @@ class SocialAuthController extends Controller
             }
 
             /*
-            * Si un compte DevLink possède déjà cette adresse e-mail,
+            * Si un compte DevColab possède déjà cette adresse e-mail,
             * authentifier directement l'utilisateur sans créer de SocialAccount.
             */
             $existingUser = User::query()
@@ -130,7 +130,7 @@ class SocialAuthController extends Controller
 
             return redirect()
                 ->route('home')
-                ->with('success', 'Bienvenue sur DevLink !');
+                ->with('success', 'Bienvenue sur DevColab !');
         } catch (Throwable $exception) {
             report($exception);
 

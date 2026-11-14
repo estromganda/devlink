@@ -43,7 +43,7 @@ function submit() {
             </h1>
 
             <p class="text-sm text-muted-foreground">
-                Présente-toi à la communauté DevLink et partage tes
+                Présente-toi à la communauté DevColab et partage tes
                 compétences, ton parcours et tes liens professionnels.
             </p>
         </div>

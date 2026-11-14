@@ -147,7 +147,7 @@ function paginationLabel(label: string): string {
                             <div
                                 class="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-teal-700 dark:border-teal-900 dark:bg-teal-950/60 dark:text-teal-300">
                                 <Sparkles class="size-3.5" />
-                                DevLink · Réseau de développeurs
+                                DevColab · Réseau de développeurs
                             </div>
 
                             <h1
@@ -349,7 +349,7 @@ function paginationLabel(label: string): string {
                             </h3>
 
                             <p class="mt-1 line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
-                                {{ developer.headline || 'Développeur de la communauté DevLink' }}
+                                {{ developer.headline || 'Développeur de la communauté DevColab' }}
                             </p>
 
                             <!-- Localisation -->

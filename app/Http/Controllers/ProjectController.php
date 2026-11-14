@@ -446,6 +446,6 @@ class ProjectController extends Controller
         $repository->delete();
 
         return to_route('projects.show', $project->slug)
-            ->with('success', 'Le dépôt a été retiré du projet DevLink.');
+            ->with('success', 'Le dépôt a été retiré du projet DevColab.');
     }
 }

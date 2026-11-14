@@ -263,7 +263,7 @@ function addMember(): void {
                     <div>
                         <h2 class="text-lg font-bold">Inviter un développeur</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Ajoutez un compte DevLink à l’équipe de votre projet.
+                            Ajoutez un compte DevColab à l’équipe de votre projet.
                         </p>
                     </div>
                 </div>
@@ -300,7 +300,7 @@ function addMember(): void {
                     <div
                         class="flex flex-col gap-3 border-t border-gray-100 pt-5 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
                         <p class="text-xs leading-5 text-gray-500 dark:text-gray-400">
-                            Le compte doit déjà exister sur DevLink.
+                            Le compte doit déjà exister sur DevColab.
                         </p>
                         <button type="submit" :disabled="addForm.processing"
                             class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
@@ -353,7 +353,7 @@ function addMember(): void {
                                 </div>
 
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                    {{ member.profile?.headline || 'Développeur DevLink' }}
+                                    {{ member.profile?.headline || 'Développeur DevColab' }}
                                 </p>
 
                                 <p class="mt-3 text-xs text-gray-400 dark:text-gray-500">

@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
                     <div
                         class="inline-flex items-center gap-2 rounded-full border bg-background/80 px-3.5 py-2 text-xs font-bold text-primary shadow-sm backdrop-blur sm:text-sm">
                         <Rocket class="size-4" />
-                        L'espace projets DevLink
+                        L'espace projets DevColab
                     </div>
 
                     <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
                     </h1>
 
                     <p class="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
-                        Présente ton travail à la communauté DevLink, partage
+                        Présente ton travail à la communauté DevColab, partage
                         les technologies que tu utilises et, si tu le souhaites,
                         trouve des développeurs pour t'accompagner.
                     </p>
@@ -240,7 +240,7 @@ onBeforeUnmount(() => {
                             </div>
 
                             <input id="name" v-model="form.name" required maxlength="150" autocomplete="off"
-                                placeholder="Ex. DevLink, mon application SaaS..."
+                                placeholder="Ex. DevColab, mon application SaaS..."
                                 class="w-full rounded-xl border bg-background px-4 py-3.5 text-sm outline-none transition placeholder:text-muted-foreground/60 focus:border-primary focus:ring-4 focus:ring-primary/10"
                                 :aria-invalid="!!form.errors.name" :aria-describedby="form.errors.name ? 'name-error' : undefined
                                     " />

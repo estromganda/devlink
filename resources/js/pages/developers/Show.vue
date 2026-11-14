@@ -131,8 +131,8 @@ const professionalLinks = computed(() => [
 
 <template>
 
-    <Head :title="`${developer.name} — Développeur DevLink`">
-        <meta name="description" :content="developer.bio || `Découvrez le profil de ${developer.name} sur DevLink.`" />
+    <Head :title="`${developer.name} — Développeur DevColab`">
+        <meta name="description" :content="developer.bio || `Découvrez le profil de ${developer.name} sur DevColab.`" />
     </Head>
 
     <main class="min-h-screen bg-background py-6 sm:py-10">
@@ -166,7 +166,7 @@ const professionalLinks = computed(() => [
                     <div
                         class="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs font-semibold text-primary backdrop-blur-sm sm:right-8 sm:top-8">
                         <Sparkles class="size-3.5" />
-                        Membre de DevLink
+                        Membre de DevColab
                     </div>
 
                     <div
@@ -432,7 +432,7 @@ const professionalLinks = computed(() => [
 
                                 <div>
                                     <p class="text-sm font-semibold text-foreground">
-                                        Membre de la communauté DevLink
+                                        Membre de la communauté DevColab
                                     </p>
                                     <p class="mt-1 text-xs text-muted-foreground">
                                         Pour les développeurs, par les développeurs.

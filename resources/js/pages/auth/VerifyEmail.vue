@@ -19,7 +19,7 @@ defineOptions({
     layout: {
         title: 'Vérification de l’adresse e-mail',
         description:
-            'Vérifie ton adresse e-mail pour profiter pleinement de la communauté DevLink.',
+            'Vérifie ton adresse e-mail pour profiter pleinement de la communauté DevColab.',
     },
 });
 
@@ -58,7 +58,7 @@ defineProps<{
 
                     <div class="min-w-0">
                         <p class="truncate text-lg font-bold tracking-tight">
-                            DevLink
+                            DevColab
                         </p>
 
                         <p class="text-xs text-muted-foreground sm:text-sm">
@@ -86,7 +86,7 @@ defineProps<{
                 </h1>
 
                 <p class="mt-4 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                    Merci d'avoir rejoint DevLink ! Avant de commencer à
+                    Merci d'avoir rejoint DevColab ! Avant de commencer à
                     explorer les communautés et à partager tes projets,
                     confirme ton adresse e-mail en cliquant sur le lien que
                     nous t'avons envoyé.
@@ -156,7 +156,7 @@ defineProps<{
             <div class="border-t border-border/60 bg-muted/20 px-5 py-4 text-center sm:px-8">
                 <p class="text-xs leading-5 text-muted-foreground">
                     Tes informations restent protégées.
-                    <span class="font-medium">Bienvenue sur DevLink.</span>
+                    <span class="font-medium">Bienvenue sur DevColab.</span>
                 </p>
             </div>
         </section>

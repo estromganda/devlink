@@ -23,7 +23,7 @@ import { email } from '@/routes/password';
 defineOptions({
     layout: {
         title: 'Mot de passe oublié',
-        description: 'Réinitialise ton mot de passe pour retrouver ton compte DevLink.',
+        description: 'Réinitialise ton mot de passe pour retrouver ton compte DevColab.',
     },
 });
 
@@ -59,7 +59,7 @@ defineProps<{
                     </div>
 
                     <div>
-                        <p class="text-xl font-bold tracking-tight">DevLink</p>
+                        <p class="text-xl font-bold tracking-tight">DevColab</p>
                         <p class="text-xs text-slate-400">
                             La communauté des développeurs
                         </p>
@@ -132,7 +132,7 @@ defineProps<{
                             </div>
 
                             <div>
-                                <p class="text-xl font-bold tracking-tight">DevLink</p>
+                                <p class="text-xl font-bold tracking-tight">DevColab</p>
                                 <p class="text-sm text-muted-foreground">
                                     La communauté des développeurs
                                 </p>

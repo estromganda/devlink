@@ -153,7 +153,7 @@ function clearTitle() {
 
                                     <div class="min-w-0 flex-1">
                                         <p class="text-sm font-semibold">
-                                            {{ selectedCommunity?.name || 'Fil général de DevLink' }}
+                                            {{ selectedCommunity?.name || 'Fil général de DevColab' }}
                                         </p>
 
                                         <p class="mt-1 text-xs leading-5 text-muted-foreground">
@@ -170,7 +170,7 @@ function clearTitle() {
                                     class="mt-3 w-full rounded-xl border bg-background px-4 py-3.5 text-sm outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
                                     :aria-invalid="!!form.errors.community_id">
                                     <option value="">
-                                        Fil général de DevLink
+                                        Fil général de DevColab
                                     </option>
 
                                     <option v-for="community in communities" :key="community.id" :value="community.id">
@@ -352,7 +352,7 @@ function clearTitle() {
 
                                 <div class="min-w-0">
                                     <p class="truncate text-sm font-semibold">
-                                        {{ selectedCommunity?.name || 'Fil général de DevLink' }}
+                                        {{ selectedCommunity?.name || 'Fil général de DevColab' }}
                                     </p>
                                     <p class="text-xs text-muted-foreground">
                                         Ta publication
@@ -375,7 +375,7 @@ function clearTitle() {
                             <div class="mt-4 flex items-center gap-4 border-t pt-3 text-xs text-muted-foreground">
                                 <span class="inline-flex items-center gap-1.5">
                                     <Code2 class="size-3.5" />
-                                    DevLink
+                                    DevColab
                                 </span>
 
                                 <span class="inline-flex items-center gap-1.5">

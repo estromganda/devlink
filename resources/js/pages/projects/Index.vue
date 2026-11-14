@@ -168,7 +168,7 @@ function clearSearch(): void {
                         <div
                             class="inline-flex items-center gap-2 rounded-full border bg-background/80 px-3.5 py-2 text-xs font-bold text-primary shadow-sm backdrop-blur sm:text-sm">
                             <Rocket class="size-4" />
-                            L'espace projets DevLink
+                            L'espace projets DevColab
                         </div>
 
                         <h1 class="mt-6 text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl">

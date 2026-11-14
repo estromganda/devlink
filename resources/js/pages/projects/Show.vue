@@ -137,7 +137,7 @@ const createdDate = new Date(props.project.created_at).toLocaleDateString(
 
 <template>
 
-    <Head :title="`${project.name} — DevLink`" />
+    <Head :title="`${project.name} — DevColab`" />
 
     <div class="min-h-screen">
         <!-- Fil d'Ariane -->
@@ -560,7 +560,7 @@ const createdDate = new Date(props.project.created_at).toLocaleDateString(
                                 <strong class="wrap-break-word">
                                     {{ repositoryToRemove.full_name }}
                                 </strong>
-                                des dépôts associés à ce projet DevLink.
+                                des dépôts associés à ce projet DevColab.
                                 <strong>Le dépôt GitHub ne sera pas supprimé.</strong>
                             </p>
                         </div>

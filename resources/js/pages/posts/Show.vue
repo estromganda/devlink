@@ -125,7 +125,7 @@ const postDate = computed(() =>
 
                 <div class="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
                     <Code2 class="size-4 text-primary" />
-                    <span>Communauté DevLink</span>
+                    <span>Communauté DevColab</span>
                 </div>
             </div>
 
@@ -143,7 +143,7 @@ const postDate = computed(() =>
                                 <div
                                     class="inline-flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs font-semibold text-primary">
                                     <Sparkles class="size-3.5" />
-                                    Publication DevLink
+                                    Publication DevColab
                                 </div>
 
                                 <h1 v-if="post.title"
@@ -395,13 +395,13 @@ const postDate = computed(() =>
                             <div>
                                 <h2 class="font-bold">À propos</h2>
                                 <p class="text-xs text-muted-foreground">
-                                    La communauté DevLink
+                                    La communauté DevColab
                                 </p>
                             </div>
                         </div>
 
                         <p class="mt-4 text-sm leading-6 text-muted-foreground">
-                            DevLink est un espace où les développeurs partagent leurs
+                            DevColab est un espace où les développeurs partagent leurs
                             connaissances, découvrent des projets et s'entraident.
                         </p>
 

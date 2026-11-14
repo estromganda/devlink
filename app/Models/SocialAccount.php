@@ -17,7 +17,7 @@ class SocialAccount extends Model
     ];
 
     /**
-     * Utilisateur DevLink associé à cette identité sociale.
+     * Utilisateur DevColab associé à cette identité sociale.
      */
     public function user(): BelongsTo
     {

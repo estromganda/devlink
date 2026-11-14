@@ -172,7 +172,7 @@ function paginationLabel(label: string) {
 
                         <p class="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
                             Pose tes questions, partage tes connaissances et
-                            trouve des solutions avec la communauté DevLink.
+                            trouve des solutions avec la communauté DevColab.
                         </p>
 
                         <div class="mt-5 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">

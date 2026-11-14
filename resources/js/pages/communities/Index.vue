@@ -98,7 +98,7 @@ function paginationLabel(label: string): string {
                         <div
                             class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
                             <Sparkles class="size-3.5" />
-                            DevLink · Communauté
+                            DevColab · Communauté
                         </div>
 
                         <h1 class="max-w-2xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -111,7 +111,7 @@ function paginationLabel(label: string): string {
                         <p class="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
                             Rencontre des développeurs qui partagent tes technologies,
                             échange des connaissances et donne vie à tes projets avec
-                            la communauté DevLink.
+                            la communauté DevColab.
                         </p>
 
                         <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-muted-foreground">
@@ -160,7 +160,7 @@ function paginationLabel(label: string): string {
                         </h2>
 
                         <p class="mt-1 text-sm text-muted-foreground">
-                            Découvre les espaces de discussion de DevLink.
+                            Découvre les espaces de discussion de DevColab.
                         </p>
                     </div>
 

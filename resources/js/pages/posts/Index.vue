@@ -132,7 +132,7 @@ function paginationLabel(label: string) {
                         <div
                             class="mb-4 inline-flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs font-semibold text-primary">
                             <Sparkles class="size-3.5" />
-                            <span>La communauté DevLink</span>
+                            <span>La communauté DevColab</span>
                         </div>
 
                         <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -229,7 +229,7 @@ function paginationLabel(label: string) {
                                         <span v-else
                                             class="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                                             <Code2 class="size-3.5" />
-                                            Communauté DevLink
+                                            Communauté DevColab
                                         </span>
                                     </div>
                                 </div>
@@ -262,8 +262,8 @@ function paginationLabel(label: string) {
                                         :aria-pressed="post.liked_by_me"
                                         class="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-rose-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                                         :class="post.liked_by_me
-                                                ? 'bg-rose-500/10 text-rose-500'
-                                                : 'text-muted-foreground hover:text-rose-500'
+                                            ? 'bg-rose-500/10 text-rose-500'
+                                            : 'text-muted-foreground hover:text-rose-500'
                                             " @click="toggleLike(post)">
                                         <Heart class="size-4 transition-transform"
                                             :class="post.liked_by_me ? 'fill-current scale-110' : ''" />
@@ -290,8 +290,8 @@ function paginationLabel(label: string) {
                                 <Link v-if="link.url" :href="link.url" :aria-current="link.active ? 'page' : undefined"
                                     class="inline-flex min-h-10 items-center justify-center rounded-xl border px-3.5 text-sm font-medium transition hover:border-primary/40 hover:bg-muted"
                                     :class="link.active
-                                            ? 'border-primary bg-primary text-primary-foreground shadow-sm hover:bg-primary hover:text-primary-foreground'
-                                            : 'bg-card'
+                                        ? 'border-primary bg-primary text-primary-foreground shadow-sm hover:bg-primary hover:text-primary-foreground'
+                                        : 'bg-card'
                                         ">
                                     {{ paginationLabel(link.label) }}
                                 </Link>
@@ -341,7 +341,7 @@ function paginationLabel(label: string) {
                             <div class="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
                                 <Sparkles class="size-4" />
                             </div>
-                            <h2 class="font-bold">L’esprit DevLink</h2>
+                            <h2 class="font-bold">L’esprit DevColab</h2>
                         </div>
 
                         <p class="mt-4 text-sm leading-6 text-muted-foreground">
@@ -388,7 +388,7 @@ function paginationLabel(label: string) {
 
                         <Link v-else href="/login"
                             class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-semibold transition hover:border-primary/40 hover:bg-primary/5 hover:text-primary">
-                            Rejoindre DevLink
+                            Rejoindre DevColab
                             <ArrowRight class="size-4" />
                         </Link>
                     </div>

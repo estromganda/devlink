@@ -29,7 +29,7 @@ it('displays repositories returned by GitHub', function () {
         'user_id' => $this->user->id,
         'provider' => 'github',
         'provider_user_id' => '12345',
-        'username' => 'devlink-user',
+        'username' => 'devcolab-user',
         'email' => $this->user->email,
         'access_token' => 'fake-github-token',
         'scopes' => ['read:user', 'user:email', 'repo'],
@@ -41,13 +41,13 @@ it('displays repositories returned by GitHub', function () {
             [
                 'id' => 98765,
                 'name' => 'example-repository',
-                'full_name' => 'devlink-user/example-repository',
+                'full_name' => 'devcolab-user/example-repository',
                 'description' => 'Repository used for testing',
-                'html_url' => 'https://github.com/devlink-user/example-repository',
+                'html_url' => 'https://github.com/devcolab-user/example-repository',
                 'default_branch' => 'main',
                 'private' => false,
                 'owner' => [
-                    'login' => 'devlink-user',
+                    'login' => 'devcolab-user',
                 ],
                 'updated_at' => now()->toISOString(),
             ],
@@ -63,7 +63,7 @@ it('displays repositories returned by GitHub', function () {
                 ->has('repositories', 1)
                 ->where(
                     'repositories.0.full_name',
-                    'devlink-user/example-repository'
+                    'devcolab-user/example-repository'
                 )
         );
 });
@@ -73,7 +73,7 @@ it('associates a GitHub repository with a project', function () {
         'user_id' => $this->user->id,
         'provider' => 'github',
         'provider_user_id' => '12345',
-        'username' => 'devlink-user',
+        'username' => 'devcolab-user',
         'email' => $this->user->email,
         'access_token' => 'fake-github-token',
         'scopes' => ['read:user', 'user:email', 'repo'],
@@ -95,9 +95,9 @@ it('associates a GitHub repository with a project', function () {
         'api.github.com/repositories/98765' => Http::response([
             'id' => 98765,
             'name' => 'example-repository',
-            'full_name' => 'devlink-user/example-repository',
+            'full_name' => 'devcolab-user/example-repository',
             'description' => 'Repository used for testing',
-            'html_url' => 'https://github.com/devlink-user/example-repository',
+            'html_url' => 'https://github.com/devcolab-user/example-repository',
             'default_branch' => 'main',
             'private' => false,
         ], 200),
@@ -115,8 +115,8 @@ it('associates a GitHub repository with a project', function () {
         'git_connection_id' => $connection->id,
         'provider' => 'github',
         'external_id' => '98765',
-        'full_name' => 'devlink-user/example-repository',
-        'repository_url' => 'https://github.com/devlink-user/example-repository',
+        'full_name' => 'devcolab-user/example-repository',
+        'repository_url' => 'https://github.com/devcolab-user/example-repository',
         'is_active' => true,
     ]);
 });
@@ -126,7 +126,7 @@ it('does not allow users to associate repositories with another users project', 
         'user_id' => $this->user->id,
         'provider' => 'github',
         'provider_user_id' => '12345',
-        'username' => 'devlink-user',
+        'username' => 'devcolab-user',
         'email' => $this->user->email,
         'access_token' => 'fake-github-token',
         'scopes' => ['read:user', 'user:email', 'repo'],
@@ -174,7 +174,7 @@ function createGitHubRepositoryForSync(
         'user_id' => $user->id,
         'provider' => 'github',
         'provider_user_id' => 'github-user-123',
-        'username' => 'devlink-user',
+        'username' => 'devcolab-user',
         'email' => $user->email,
         'access_token' => 'fake-github-token',
         'scopes' => ['read:user', 'user:email', 'repo'],
@@ -198,10 +198,10 @@ function createGitHubRepositoryForSync(
         'connected_by' => $user->id,
         'provider' => 'github',
         'external_id' => '98765',
-        'full_name' => 'devlink-user/old-repository',
+        'full_name' => 'devcolab-user/old-repository',
         'name' => 'old-repository',
         'description' => 'Old description',
-        'repository_url' => 'https://github.com/devlink-user/old-repository',
+        'repository_url' => 'https://github.com/devcolab-user/old-repository',
         'default_branch' => 'master',
         'is_private' => false,
         'is_active' => true,
@@ -215,9 +215,9 @@ function githubRepositorySyncPayload(array $overrides = []): array
     return array_merge([
         'id' => 98765,
         'name' => 'new-repository',
-        'full_name' => 'devlink-user/new-repository',
+        'full_name' => 'devcolab-user/new-repository',
         'description' => 'Updated repository description',
-        'html_url' => 'https://github.com/devlink-user/new-repository',
+        'html_url' => 'https://github.com/devcolab-user/new-repository',
         'default_branch' => 'main',
         'private' => true,
     ], $overrides);
@@ -243,10 +243,10 @@ it('synchronizes GitHub repository metadata successfully', function () {
 
     $this->assertDatabaseHas('project_repositories', [
         'id' => $repository->id,
-        'full_name' => 'devlink-user/new-repository',
+        'full_name' => 'devcolab-user/new-repository',
         'name' => 'new-repository',
         'description' => 'Updated repository description',
-        'repository_url' => 'https://github.com/devlink-user/new-repository',
+        'repository_url' => 'https://github.com/devcolab-user/new-repository',
         'default_branch' => 'main',
         'is_private' => true,
     ]);
@@ -322,7 +322,7 @@ it('handles an invalid GitHub token during synchronization', function () {
         ->assertSessionHas('error');
 
     expect($repository->fresh()->full_name)
-        ->toBe('devlink-user/old-repository');
+        ->toBe('devcolab-user/old-repository');
 });
 
 it('handles a repository that no longer exists on GitHub', function () {
@@ -344,7 +344,7 @@ it('handles a repository that no longer exists on GitHub', function () {
         ->assertSessionHas('error');
 
     expect($repository->fresh()->full_name)
-        ->toBe('devlink-user/old-repository');
+        ->toBe('devcolab-user/old-repository');
 });
 
 it('handles GitHub API server errors during synchronization', function () {
@@ -366,7 +366,7 @@ it('handles GitHub API server errors during synchronization', function () {
         ->assertSessionHas('error');
 
     expect($repository->fresh()->full_name)
-        ->toBe('devlink-user/old-repository');
+        ->toBe('devcolab-user/old-repository');
 });
 
 it('handles network failures during synchronization', function () {
@@ -390,5 +390,5 @@ it('handles network failures during synchronization', function () {
         ->assertSessionHas('error');
 
     expect($repository->fresh()->full_name)
-        ->toBe('devlink-user/old-repository');
+        ->toBe('devcolab-user/old-repository');
 });

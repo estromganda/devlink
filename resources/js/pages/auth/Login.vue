@@ -26,7 +26,7 @@ import { request } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Connexion à DevLink',
+        title: 'Connexion à DevColab',
         description: 'Connecte-toi pour retrouver la communauté des développeurs.',
     },
 });
@@ -69,7 +69,7 @@ defineProps<{
                 </h1>
 
                 <p class="mt-6 max-w-2xl text-base leading-8 text-muted-foreground xl:text-lg">
-                    Connecte-toi à DevLink pour partager tes connaissances,
+                    Connecte-toi à DevColab pour partager tes connaissances,
                     découvrir des projets inspirants et collaborer avec
                     des développeurs qui partagent ta passion.
                 </p>
@@ -125,7 +125,7 @@ defineProps<{
                             </div>
 
                             <div class="min-w-0">
-                                <p class="text-lg font-extrabold tracking-tight">DevLink</p>
+                                <p class="text-lg font-extrabold tracking-tight">DevColab</p>
                                 <p class="text-xs text-muted-foreground">La communauté des développeurs</p>
                             </div>
                         </div>

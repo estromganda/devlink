@@ -41,7 +41,7 @@ class GitHubRepositoryController extends Controller
                     ->acceptJson()
                     ->withHeaders([
                         'X-GitHub-Api-Version' => '2022-11-28',
-                        'User-Agent' => 'DevLink',
+                        'User-Agent' => 'DevColab',
                     ])
                     ->timeout(15)
                     ->get('https://api.github.com/user/repos', [
@@ -123,7 +123,7 @@ class GitHubRepositoryController extends Controller
     }
 
     /**
-     * Associate an accessible GitHub repository with a DevLink project.
+     * Associate an accessible GitHub repository with a DevColab project.
      */
     public function associate(Request $request): RedirectResponse
     {
@@ -146,7 +146,7 @@ class GitHubRepositoryController extends Controller
             ->acceptJson()
             ->withHeaders([
                 'X-GitHub-Api-Version' => '2022-11-28',
-                'User-Agent' => 'DevLink',
+                'User-Agent' => 'DevColab',
             ])
             ->timeout(15)
             ->get(
@@ -213,7 +213,7 @@ class GitHubRepositoryController extends Controller
         }
 
         return to_route('github.repositories.index')
-            ->with('success', 'Le dépôt GitHub a été associé au projet DevLink.');
+            ->with('success', 'Le dépôt GitHub a été associé au projet DevColab.');
     }
 
     /**

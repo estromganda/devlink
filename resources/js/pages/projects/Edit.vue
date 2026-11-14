@@ -275,7 +275,7 @@ onBeforeUnmount(() => {
                                 </div>
 
                                 <input id="name" v-model="form.name" required maxlength="150"
-                                    placeholder="Ex. DevLink, mon portfolio..."
+                                    placeholder="Ex. DevColab, mon portfolio..."
                                     class="w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none transition placeholder:text-muted-foreground/70 focus:border-primary focus:ring-4 focus:ring-primary/10"
                                     :class="{ 'border-destructive': form.errors.name }" />
 
@@ -772,7 +772,7 @@ onBeforeUnmount(() => {
                     <section class="rounded-2xl border border-primary/20 bg-primary/5 p-5">
                         <div class="flex items-center gap-2 text-primary">
                             <Sparkles class="size-4" />
-                            <h2 class="text-sm font-semibold">Conseil DevLink</h2>
+                            <h2 class="text-sm font-semibold">Conseil DevColab</h2>
                         </div>
 
                         <p class="mt-3 text-sm leading-6 text-muted-foreground">

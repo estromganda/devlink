@@ -391,7 +391,7 @@ function formatStatus(status: string) {
             <!-- Pied de page -->
             <footer class="mt-10 border-t border-border/60 pt-5 text-center sm:mt-12">
                 <p class="text-xs leading-5 text-muted-foreground">
-                    Continue à explorer les projets et à partager tes compétences avec la communauté DevLink.
+                    Continue à explorer les projets et à partager tes compétences avec la communauté DevColab.
                 </p>
             </footer>
         </div>

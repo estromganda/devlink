@@ -248,7 +248,7 @@ function paginationLabel(label: string): string {
                 <div
                     class="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 dark:border-teal-900/70 dark:bg-teal-950/50 dark:text-teal-300">
                     <Code2 class="size-4" />
-                    DevLink · Questions & Réponses
+                    DevColab · Questions & Réponses
                 </div>
             </div>
 
@@ -643,7 +643,7 @@ function paginationLabel(label: string): string {
                         </h2>
 
                         <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
-                            Connecte-toi à DevLink pour répondre à cette question et participer aux échanges de la
+                            Connecte-toi à DevColab pour répondre à cette question et participer aux échanges de la
                             communauté.
                         </p>
 
@@ -732,13 +732,13 @@ function paginationLabel(label: string): string {
                             <div class="flex items-center justify-between gap-3 text-sm">
                                 <span class="text-slate-500 dark:text-slate-400">Réponses</span>
                                 <span class="font-bold text-slate-800 dark:text-slate-200">{{ question.answers_count
-                                }}</span>
+                                    }}</span>
                             </div>
 
                             <div class="flex items-center justify-between gap-3 text-sm">
                                 <span class="text-slate-500 dark:text-slate-400">Appréciations</span>
                                 <span class="font-bold text-slate-800 dark:text-slate-200">{{ question.likes_count
-                                }}</span>
+                                    }}</span>
                             </div>
 
                             <div class="flex items-center justify-between gap-3 text-sm">

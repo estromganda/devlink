@@ -12,7 +12,7 @@ use Throwable;
 class GitHubConnectionController extends Controller
 {
     /**
-     * Redirect the authenticated DevLink user to GitHub.
+     * Redirect the authenticated DevColab user to GitHub.
      */
     public function redirect(Request $request): RedirectResponse
     {
@@ -89,7 +89,7 @@ class GitHubConnectionController extends Controller
             }
 
             return redirect($returnUrl)
-                ->with('success', 'Ton compte GitHub est connecté à DevLink.');
+                ->with('success', 'Ton compte GitHub est connecté à DevColab.');
         } catch (Throwable $exception) {
             Log::error('GitHub OAuth connection failed.', [
                 'user_id' => $request->user()?->id,

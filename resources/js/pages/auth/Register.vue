@@ -26,7 +26,7 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: 'Créer un compte DevLink',
+        title: 'Créer un compte DevColab',
         description:
             'Rejoins la communauté des développeurs et construis de nouveaux projets ensemble.',
     },
@@ -59,7 +59,7 @@ defineOptions({
                     </div>
 
                     <div>
-                        <p class="text-xl font-bold tracking-tight">DevLink</p>
+                        <p class="text-xl font-bold tracking-tight">DevColab</p>
                         <p class="text-xs text-slate-400">
                             La communauté des développeurs
                         </p>
@@ -141,7 +141,7 @@ defineOptions({
 
                             <div>
                                 <p class="text-xl font-bold tracking-tight">
-                                    DevLink
+                                    DevColab
                                 </p>
                                 <p class="text-sm text-muted-foreground">
                                     La communauté des développeurs
@@ -159,7 +159,7 @@ defineOptions({
 
                         <p
                             class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">
-                            Rejoins DevLink
+                            Rejoins DevColab
                         </p>
 
                         <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -320,7 +320,7 @@ defineOptions({
 
                         <span>
                             Tes informations sont utilisées pour gérer ton compte
-                            DevLink.
+                            DevColab.
                         </span>
                     </div>
                 </div>

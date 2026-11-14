@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
                 <div class="overflow-hidden rounded-2xl border bg-card shadow-sm">
                     <div class="bg-linear-to-br from-primary/15 via-primary/5 to-background px-6 py-8 sm:px-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-primary">
-                            Devlink
+                            DevColab
                         </p>
 
                         <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">

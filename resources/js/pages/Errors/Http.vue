@@ -46,7 +46,7 @@ const errors: Record<number, ErrorContent> = {
         icon: '🛠️',
     },
     503: {
-        title: 'Devlink est en maintenance',
+        title: 'DevColab est en maintenance',
         description:
             'Nous effectuons quelques opérations de maintenance. Le service devrait être disponible prochainement.',
         icon: '🔧',
@@ -77,7 +77,7 @@ function goBack() {
 
 <template>
 
-    <Head :title="`${errorCode} — ${error.title} | Devlink`" />
+    <Head :title="`${errorCode} — ${error.title} | DevColab`" />
 
     <main class="flex min-h-screen flex-col items-center justify-center bg-background px-6 py-12 text-foreground">
         <div class="w-full max-w-xl text-center">
@@ -88,7 +88,7 @@ function goBack() {
                     D
                 </span>
 
-                <span>Devlink</span>
+                <span>DevColab</span>
             </Link>
 
             <!-- Illustration -->
@@ -131,14 +131,14 @@ function goBack() {
 
                 <Link href="/"
                     class="font-medium text-foreground underline underline-offset-4 transition-colors hover:text-primary">
-                    Reviens sur Devlink
+                    Reviens sur DevColab
                 </Link>
                 et réessaie.
             </p>
         </div>
 
         <footer class="mt-16 text-center text-xs text-muted-foreground">
-            © {{ new Date().getFullYear() }} Devlink.
+            © {{ new Date().getFullYear() }} DevColab.
             Par les développeurs, pour les développeurs.
         </footer>
     </main>

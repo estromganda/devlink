@@ -82,7 +82,7 @@ function goToPage(page: number) {
 
 <template>
 
-    <Head :title="`Historique des commits — ${repository.full_name} — DevLink`" />
+    <Head :title="`Historique des commits — ${repository.full_name} — DevColab`" />
 
     <main class="mx-auto min-h-screen max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         <!-- Navigation -->

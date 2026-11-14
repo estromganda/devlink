@@ -159,7 +159,7 @@ const principles = [
 
 <template>
 
-    <Head title="DevLink — La communauté des développeurs" />
+    <Head title="DevColab — La communauté des développeurs" />
 
     <main class="overflow-hidden">
         <!-- Hero -->
@@ -197,7 +197,7 @@ const principles = [
                     </h1>
 
                     <p class="mt-6 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
-                        DevLink est l'espace où les développeurs se rencontrent,
+                        DevColab est l'espace où les développeurs se rencontrent,
                         partagent leurs connaissances, découvrent de nouvelles
                         technologies et construisent ensemble.
                     </p>
@@ -205,7 +205,7 @@ const principles = [
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                         <Link v-if="!auth.user" href="/register"
                             class="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25">
-                            Rejoindre DevLink
+                            Rejoindre DevColab
                             <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
                         </Link>
 
@@ -240,7 +240,7 @@ const principles = [
                     </div>
                 </div>
 
-                <!-- Illustration de l'écosystème DevLink -->
+                <!-- Illustration de l'écosystème DevColab -->
                 <div class="relative mx-auto w-full max-w-xl">
                     <div class="absolute -inset-5 rounded-4xl bg-primary/10 blur-2xl" />
 
@@ -255,7 +255,7 @@ const principles = [
 
                                 <div>
                                     <p class="font-bold tracking-tight">
-                                        DevLink
+                                        DevColab
                                     </p>
                                     <p class="text-xs text-muted-foreground">
                                         Espace développeur
@@ -274,7 +274,7 @@ const principles = [
                             <div class="flex items-center justify-between gap-3">
                                 <div>
                                     <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary">
-                                        L'écosystème DevLink
+                                        L'écosystème DevColab
                                     </p>
 
                                     <h2 class="mt-2 text-xl font-extrabold sm:text-2xl">
@@ -446,7 +446,7 @@ const principles = [
 
                     <p class="mt-5 max-w-2xl leading-7 text-muted-foreground">
                         Que tu débutes, que tu sois expérimenté ou que tu
-                        construises un produit, DevLink t'aide à trouver les
+                        construises un produit, DevColab t'aide à trouver les
                         bonnes personnes et les bonnes idées.
                     </p>
                 </div>
@@ -579,7 +579,7 @@ const principles = [
 
                     <p class="mx-auto mt-5 max-w-2xl leading-7 opacity-90 sm:text-lg sm:leading-8">
                         Rejoins les développeurs, partage tes idées et
-                        participe à la construction de DevLink.
+                        participe à la construction de DevColab.
                     </p>
 
                     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

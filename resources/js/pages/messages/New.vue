@@ -278,7 +278,7 @@ function getInitials(name: string): string {
                                 <p v-else
                                     class="mt-1 flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
                                     <Code2 class="size-3.5" />
-                                    Développeur DevLink
+                                    Développeur DevColab
                                 </p>
                             </div>
                         </div>

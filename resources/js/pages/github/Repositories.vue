@@ -355,7 +355,7 @@ function formatDate(date: string | null): string {
 
                                 <label v-else :for="`project-${repository.external_id}`"
                                     class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    Associer à un projet DevLink
+                                    Associer à un projet DevColab
                                 </label>
 
                                 <select :id="`project-${repository.external_id}`"
@@ -391,7 +391,7 @@ function formatDate(date: string | null): string {
                             </template>
 
                             <p v-else class="text-sm text-gray-500 dark:text-gray-400">
-                                Tu dois posséder un projet DevLink pour pouvoir y associer ce dépôt.
+                                Tu dois posséder un projet DevColab pour pouvoir y associer ce dépôt.
                             </p>
 
                             <a :href="repository.repository_url" target="_blank" rel="noopener noreferrer"

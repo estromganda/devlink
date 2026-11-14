@@ -109,7 +109,7 @@ function visitPage(url: string | null): void {
                 </h1>
 
                 <p class="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground sm:mt-3 sm:text-base">
-                    Gère tes projets, leur visibilité et leur évolution sur DevLink.
+                    Gère tes projets, leur visibilité et leur évolution sur DevColab.
                 </p>
 
                 <p v-if="projects.total > 0" class="mt-3 text-sm text-muted-foreground">
@@ -233,7 +233,7 @@ function visitPage(url: string | null): void {
             </h2>
 
             <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
-                Présente ta première réalisation à la communauté DevLink et trouve
+                Présente ta première réalisation à la communauté DevColab et trouve
                 des développeurs avec qui collaborer.
             </p>
 
@@ -315,7 +315,7 @@ function visitPage(url: string | null): void {
                             <span class="font-semibold text-foreground">
                                 « {{ projectToDelete.name }} »
                             </span>.
-                            Cette action retirera le projet du catalogue DevLink.
+                            Cette action retirera le projet du catalogue DevColab.
                             Veux-tu vraiment continuer ?
                         </p>
 

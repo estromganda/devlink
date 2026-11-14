@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>503 — Maintenance | Devlink</title>
+    <title>503 — Maintenance | DevColab</title>
 
     <style>
         * {
@@ -89,7 +89,7 @@
 
 <body>
     <main>
-        <div class="logo">Devlink</div>
+        <div class="logo">DevColab</div>
 
         <div class="icon" aria-hidden="true">🔧</div>
 
@@ -98,14 +98,14 @@
         <h1>Nous revenons bientôt.</h1>
 
         <p>
-            Devlink est temporairement indisponible pour maintenance.
+            DevColab est temporairement indisponible pour maintenance.
             Merci de réessayer dans quelques instants.
         </p>
 
         <a href="/">Retour à l'accueil</a>
 
         <footer>
-            © {{ date('Y') }} Devlink.
+            © {{ date('Y') }} DevColab.
             Par les développeurs, pour les développeurs.
         </footer>
     </main>

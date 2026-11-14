@@ -95,7 +95,7 @@ function submit() {
                 <div
                     class="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-800 dark:border-teal-900/70 dark:bg-teal-950/50 dark:text-teal-300">
                     <Code2 class="size-4" />
-                    DevLink · Questions & Réponses
+                    DevColab · Questions & Réponses
                 </div>
             </div>
 
@@ -116,7 +116,7 @@ function submit() {
 
                         <p class="mt-3 max-w-xl text-sm leading-7 text-teal-50 sm:text-base">
                             Bloqué sur un problème technique ? Décris-le clairement.
-                            La communauté DevLink est là pour t'aider à trouver une solution.
+                            La communauté DevColab est là pour t'aider à trouver une solution.
                         </p>
                     </div>
 

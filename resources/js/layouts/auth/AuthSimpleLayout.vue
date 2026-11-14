@@ -22,9 +22,9 @@ defineProps<{
             aria-hidden="true" />
 
         <!-- Conteneur principal -->
-        <div class="w-full max-w-sm sm:max-w-md lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl"> <!-- Marque DevLink -->
+        <div class="w-full max-w-sm sm:max-w-md lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl"> <!-- Marque DevColab -->
             <div class="mb-7 flex justify-center sm:mb-9">
-                <Link :href="home()" aria-label="Retour à l'accueil de DevLink"
+                <Link :href="home()" aria-label="Retour à l'accueil de DevColab"
                     class="group inline-flex items-center gap-3 rounded-2xl p-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <div
                         class="flex size-12 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 transition-transform group-hover:scale-105 sm:size-14">
@@ -33,7 +33,7 @@ defineProps<{
 
                     <div class="text-left">
                         <p class="text-xl font-bold tracking-tight sm:text-2xl">
-                            DevLink
+                            DevColab
                         </p>
 
                         <p class="text-xs text-muted-foreground sm:text-sm">
@@ -76,7 +76,7 @@ defineProps<{
                 <Link :href="home()"
                     class="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <Code2 class="size-4 shrink-0" />
-                    <span>Retour à l'accueil de DevLink</span>
+                    <span>Retour à l'accueil de DevColab</span>
                 </Link>
 
                 <p class="mt-2 text-xs leading-5 text-muted-foreground">

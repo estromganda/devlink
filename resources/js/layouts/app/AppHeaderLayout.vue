@@ -198,7 +198,7 @@ onUpdated(() => {
                 <div
                     class="mt-10 flex flex-col gap-3 border-t pt-6 text-center text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:text-left">
                     <p>
-                        © {{ new Date().getFullYear() }} DevLink.
+                        © {{ new Date().getFullYear() }} DevColab.
                         La communauté des développeurs.
                     </p>
 
